@@ -14,7 +14,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between p-4 bg-white shadow-xs z-10">
+    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between p-4 bg-[#F9F5F6] shadow-xs z-10">
       {/* Wrapper div to center nav content with max-width 1600px */}
       <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between">
         
