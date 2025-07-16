@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const {user, loginWithGoogle} = useAuth()
+console.log(user);
+console.log(loginWithGoogle);
+
   const handleLogin = (e) => {
     e.preventDefault();
     // Add your login logic here
+    console.log(5);
   };
 
   return (
