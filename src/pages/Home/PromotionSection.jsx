@@ -8,7 +8,7 @@ const coupons = [
   { code: "WELCOME10", discount: 10, description: "10% off for new members" },
 ];
 
-const PromotionsSection = () => {
+const PromotionSection = () => {
   return (
     <section className="bg-green-50 py-16">
       <div className="max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%]">
@@ -36,4 +36,4 @@ const PromotionsSection = () => {
   );
 };
 
-export default PromotionsSection;
+export default PromotionSection;
