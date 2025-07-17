@@ -8,21 +8,14 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-import {auth} from '../firebase/firebase.config'
+import { auth } from '../firebase/firebase.config';
 import { AuthContext } from './AuthContext';
-// import axios from 'axios';
 
 const googleAuthProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-
-  // Demo user
-  const user = {
-    name: 'Redoy Al Hasan',
-    age: 23
-  }
 
   // Register new user
   const registerUserWithEmail = (email, password) => {
@@ -58,31 +51,17 @@ const AuthProvider = ({ children }) => {
 
   // Monitor authentication state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async user => {
-      console.log('Auth State Changed:', user?.email);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log('Auth State Changed:', currentUser?.email);
 
-      if (user?.email) {
-        setCurrentUser(user);
+      if (currentUser?.email) {
+        setUser(currentUser);
 
-        // try {
-        //   await axios.post(
-        //     `${import.meta.env.VITE_API_URL}/jwt`,
-        //     { email: user.email },
-        //     { withCredentials: true }
-        //   );
-        // } catch (error) {
-        //   console.error('JWT Token Fetch Error:', error);
-        // }
+        // Optional: Handle JWT or session cookie setup here
       } else {
-        setCurrentUser(null);
+        setUser(null);
 
-        // try {
-        //   await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-        //     withCredentials: true,
-        //   });
-        // } catch (error) {
-        //   console.error('Logout Cleanup Error:', error);
-        // }
+        // Optional: Handle logout cleanup here
       }
 
       setIsAuthLoading(false);
@@ -92,14 +71,13 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const authData = {
-    currentUser,
+    user,
     isAuthLoading,
     registerUserWithEmail,
     loginUserWithEmail,
     loginWithGoogle,
     logoutUser,
     updateUserDetails,
-    user
   };
 
   return (

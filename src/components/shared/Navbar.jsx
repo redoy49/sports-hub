@@ -1,23 +1,45 @@
 import React from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 // import logo from "../../assets/logo.png";
 
 const Navbar = () => {
-  const user = null; 
+  const { user, logoutUser } = useAuth();
+  console.log(user);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success("Logged out successfully!");
+      navigate("/"); // Redirect to homepage after logout
+    } catch (err) {
+      console.error(err);
+      toast.error("Logout failed.");
+    }
+  };
 
   const navLinks = (
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/courts">Courts</NavLink></li>
-      {user && <li><NavLink to="/dashboard/user">Dashboard</NavLink></li>}
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/courts">Courts</NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard/user">Dashboard</NavLink>
+        </li>
+      )}
     </>
   );
 
   return (
     <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between p-4 bg-[#F9F5F6] shadow-xs z-10">
-      {/* Wrapper div to center nav content with max-width 1600px */}
       <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between">
-        
         {/* Mobile Dropdown */}
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost p-0">
@@ -66,6 +88,7 @@ const Navbar = () => {
                 title={user.displayName}
               />
               <button
+                onClick={handleLogout}
                 className="btn btn-sm btn-outline border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
               >
                 Sign Out

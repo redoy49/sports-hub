@@ -1,67 +1,123 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+// import axiosInstance from "../../utils/axiosInstance";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const {user, loginWithGoogle} = useAuth()
-console.log(user);
-console.log(loginWithGoogle);
+  const { loginWithGoogle, loginUserWithEmail } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    console.log(5);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    try {
+      const result = await loginUserWithEmail(email, password);
+
+      const now = new Date().toISOString();
+      const userData = {
+        name: result?.user?.displayName || "User",
+        email: result?.user?.email,
+        image: result?.user?.photoURL || null,
+        lastLogin: now,
+      };
+
+      console.log("User Data: ", userData);
+
+      // const res = await axiosInstance.post("/users/login", userData);
+      // console.log("Login response:", res.data);
+
+      toast.success("Login Successful!");
+      reset();
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.message || "Email login failed.");
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await loginWithGoogle();
+      const now = new Date().toISOString();
+
+      const userData = {
+        name: result?.user?.displayName || "Unknown",
+        email: result?.user?.email,
+        image: result?.user?.photoURL,
+        createdAt: now,
+        lastLogin: now,
+      };
+
+      console.log("UserData", userData);
+
+      // const res = await axiosInstance.post("/users", userData);
+      // console.log("Google login response:", res.data);
+
+      toast.success("Google Login Successful!");
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.message || "Google Sign-in Failed");
+    }
   };
 
   return (
-    <div className="w-full flex flex-col justify-center">
+    <div className="w-full max-w-md mx-auto flex flex-col justify-center">
       <h2 className="text-3xl font-bold text-gray-800 mb-2">Log In</h2>
       <p className="text-gray-600 mb-8">Sign in to access your account</p>
 
-      <form onSubmit={handleLogin} className="space-y-5">
-        {/* Email */}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div className="form-control">
           <label className="label">
             <span className="label-text font-medium">Email</span>
           </label>
           <input
             type="email"
+            {...register("email", { required: true })}
             placeholder="Enter your email"
             className="input input-bordered w-full"
-            required
+            disabled={isSubmitting}
           />
         </div>
 
-        {/* Password */}
         <div className="form-control">
           <label className="label">
             <span className="label-text font-medium">Password</span>
           </label>
           <input
             type="password"
+            {...register("password", { required: true })}
             placeholder="Enter your password"
             className="input input-bordered w-full"
-            required
+            disabled={isSubmitting}
           />
         </div>
 
-        {/* Login Button */}
-        <button type="submit" className="bg-lime-500 w-full rounded-md py-3 text-white">
-          Login
+        <button
+          type="submit"
+          className="bg-lime-500 w-full rounded-md py-3 text-white"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Logging in..." : "Login"}
         </button>
       </form>
 
-      <div className="space-y-2 mt-4">
-        <button className="text-xs hover:underline hover:text-lime-500 text-gray-400">
-          Forgot password?
-        </button>
-      </div>
-
-      {/* Google Button */}
       <button
         type="button"
+        onClick={handleGoogleSignIn}
         className="btn btn-outline w-full flex items-center justify-center gap-2 mt-6"
+        disabled={isSubmitting}
       >
         <FcGoogle size={24} />
         Continue with Google
