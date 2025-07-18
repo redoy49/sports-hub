@@ -3,12 +3,13 @@ import { Link, useNavigate, useLocation } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-// import axiosInstance from "../../utils/axiosInstance";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const Login = () => {
   const { loginWithGoogle, loginUserWithEmail } = useAuth();
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
@@ -23,19 +24,16 @@ const Login = () => {
     const { email, password } = data;
     try {
       const result = await loginUserWithEmail(email, password);
-
-      const now = new Date().toISOString();
       const userData = {
         name: result?.user?.displayName || "User",
         email: result?.user?.email,
         image: result?.user?.photoURL || null,
-        lastLogin: now,
       };
 
       console.log("User Data: ", userData);
 
-      // const res = await axiosInstance.post("/users/login", userData);
-      // console.log("Login response:", res.data);
+      const res = await axiosInstance.post("/users", userData);
+      console.log("Login response:", res.data);
 
       toast.success("Login Successful!");
       reset();
@@ -49,20 +47,16 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       const result = await loginWithGoogle();
-      const now = new Date().toISOString();
-
       const userData = {
         name: result?.user?.displayName || "Unknown",
         email: result?.user?.email,
         image: result?.user?.photoURL,
-        createdAt: now,
-        lastLogin: now,
       };
 
       console.log("UserData", userData);
 
-      // const res = await axiosInstance.post("/users", userData);
-      // console.log("Google login response:", res.data);
+      const res = await axiosInstance.post("/users", userData);
+      console.log("Google login response:", res.data);
 
       toast.success("Google Login Successful!");
       navigate(from, { replace: true });
