@@ -5,7 +5,7 @@ import heroImage from "../../assets/hero-sports.jpg"; // Replace with your actua
 const HeroSection = () => {
   return (
     <section className="w-full bg-base-200">
-      <div className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] py-10 lg:py-20">
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] py-10 lg:py-20 xl:py-44">
 
         {/* Left Text Content */}
         <div className="text-center lg:text-left flex-1 space-y-6">
