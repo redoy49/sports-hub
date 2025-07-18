@@ -4,10 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
 
 const Register = () => {
-  const { registerUserWithEmail, updateUserDetails, loginWithGoogle } = useAuth();
+  const { registerUserWithEmail, updateUserDetails, loginWithGoogle } =
+    useAuth();
   const navigate = useNavigate();
+  const axiosInstance = useAxios();
 
   const {
     register,
@@ -23,11 +26,20 @@ const Register = () => {
       const result = await registerUserWithEmail(email, password);
       await updateUserDetails(fullName, null);
 
+      const userData = {
+        name: fullName || "Unknown",
+        email,
+      };
+
+      const userRes = await axiosInstance.post("/users", userData);
+      console.log(userRes.data);
+
+      console.log("UserData", userData);
+
       console.log("Registered user info:", result.user);
 
       toast.success("Registration successful!");
       navigate("/");
-
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Registration failed!");
@@ -39,21 +51,19 @@ const Register = () => {
     try {
       const result = await loginWithGoogle();
 
-      const now = new Date().toISOString();
+      console.log(result);
 
       const userData = {
         name: result?.user?.displayName || "Unknown",
         email: result?.user?.email,
-        image: result?.user?.photoURL,
-        createdAt: now,
-        lastLogin: now,
       };
+      const userRes = await axiosInstance.post("/users", userData);
+      console.log(userRes.data);
 
       console.log("Google user data:", userData);
 
       toast.success("Google sign-in successful!");
       navigate("/");
-
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Google sign-in failed!");
@@ -63,7 +73,9 @@ const Register = () => {
   return (
     <div className="w-full flex flex-col justify-center">
       <h2 className="text-3xl font-bold text-gray-800 mb-2">Register Now</h2>
-      <p className="text-gray-600 mb-8">Fill the form below to create your account</p>
+      <p className="text-gray-600 mb-8">
+        Fill the form below to create your account
+      </p>
 
       <form onSubmit={handleSubmit(handleRegister)} className="space-y-5">
         {/* Full Name */}
@@ -77,7 +89,9 @@ const Register = () => {
             placeholder="Enter your full name"
             className="input input-bordered w-full"
           />
-          {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName.message}</p>}
+          {errors.fullName && (
+            <p className="text-red-500 text-xs">{errors.fullName.message}</p>
+          )}
         </div>
 
         {/* Email */}
@@ -91,7 +105,9 @@ const Register = () => {
             placeholder="Enter your email"
             className="input input-bordered w-full"
           />
-          {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-500 text-xs">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Password */}
@@ -105,7 +121,9 @@ const Register = () => {
             placeholder="Enter your password"
             className="input input-bordered w-full"
           />
-          {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-xs">{errors.password.message}</p>
+          )}
         </div>
 
         {/* Sign Up Button */}
