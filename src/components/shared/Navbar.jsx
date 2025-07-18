@@ -2,10 +2,14 @@ import React from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useUserRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
+
+  const {role} = useUserRole()
+  console.log(role);
 
   const handleLogout = async () => {
     try {
