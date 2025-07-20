@@ -31,8 +31,8 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between p-4 bg-slate-50 shadow-sm z-10">
-      <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between">
+    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between bg-slate-50 border-b border-gray-950/5 z-10">
+      <div className="w-full max-w-[1600px] h-16 mx-auto flex items-center justify-between">
         {/* Mobile Dropdown */}
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost p-0">
@@ -40,7 +40,7 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </button>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-black">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-gray-950">
             {navLinks}
           </ul>
         </div>
@@ -53,7 +53,7 @@ const Navbar = () => {
 
         {/* Desktop Nav Links */}
         <div className="hidden lg:flex">
-          <ul className="flex gap-6 text-base font-medium">{navLinks}</ul>
+          <ul className="flex gap-6 text-gray-950">{navLinks}</ul>
         </div>
 
         {/* Auth Buttons */}
@@ -68,7 +68,7 @@ const Navbar = () => {
                   title={user?.displayName || "User"}
                 />
               </label>
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-gray-950 rounded-box w-52">
                 <li><span className="text-sm">{user.displayName || user.email}</span></li>
                 <li><Link to="/dashboard">Dashboard</Link></li>
                 <li><button onClick={handleLogout}>Logout</button></li>
