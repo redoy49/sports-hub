@@ -24,6 +24,7 @@ import ManageCoupons from "../pages/Dashboard/AdminRoute/ManageCoupons";
 import ManageBookings from "../pages/Dashboard/AdminRoute/ManageBookings";
 import ManageBookingsApproval from "../pages/Dashboard/AdminRoute/ManageBookingsApproval";
 import MakeAnnouncements from "../pages/Dashboard/AdminRoute/MakeAnnouncements";
+import MyProfile from "../pages/Dashboard/MemberRoute/MyProfile";
 
 // Placeholder dashboard pages
 // import UserDashboard from "../pages/Dashboard/UserDashboard";
@@ -151,6 +152,14 @@ const router = createBrowserRouter([
         element: (
           <MemberRoute>
             <PaymentHistory />
+          </MemberRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <MemberRoute>
+            <MyProfile />
           </MemberRoute>
         ),
       },
