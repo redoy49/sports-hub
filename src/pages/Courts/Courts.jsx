@@ -12,6 +12,7 @@ const CourtsPage = () => {
   const navigate = useNavigate();
   const axiosInstance = useAxios();
 
+  // Fetch courts on mount
   useEffect(() => {
     const fetchCourts = async () => {
       try {
@@ -26,6 +27,7 @@ const CourtsPage = () => {
     fetchCourts();
   }, [axiosInstance]);
 
+  // Open booking modal
   const handleBookNow = (court) => {
     if (!user) {
       navigate("/login");
@@ -36,6 +38,7 @@ const CourtsPage = () => {
     document.getElementById("booking_modal").showModal();
   };
 
+  // Submit booking
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -48,12 +51,16 @@ const CourtsPage = () => {
 
     try {
       await axiosInstance.post("/bookings", {
+        userEmail: user?.email,
         courtId: selectedCourt._id,
+        courtName: selectedCourt.name || selectedCourt.type,
+        price: selectedCourt.price,
         slots,
         date,
-        userEmail: user?.email,
       });
 
+      form.reset();
+      setSlots([]);
       document.getElementById("booking_modal").close();
       toast.success("Booking request sent.");
     } catch (error) {
@@ -72,7 +79,11 @@ const CourtsPage = () => {
             {courts.map((court) => (
               <div key={court._id} className="card bg-base-100 shadow-md">
                 <figure>
-                  <img src={court.image} alt={court.type} className="w-full h-52 object-cover" />
+                  <img
+                    src={court.image}
+                    alt={court.type}
+                    className="w-full h-52 object-cover"
+                  />
                 </figure>
                 <div className="card-body">
                   <h3 className="text-xl font-bold">{court.type}</h3>
@@ -90,10 +101,13 @@ const CourtsPage = () => {
         </div>
       </div>
 
+      {/* Booking Modal */}
       {selectedCourt && (
         <dialog id="booking_modal" className="modal">
           <div className="modal-box">
-            <h3 className="font-bold text-lg">Book {selectedCourt.type}</h3>
+            <h3 className="font-bold text-lg mb-2">
+              Book {selectedCourt.type}
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-4 mt-4">
               <input
                 type="text"
@@ -117,7 +131,12 @@ const CourtsPage = () => {
                 multiple
                 value={slots}
                 onChange={(e) =>
-                  setSlots(Array.from(e.target.selectedOptions, (option) => option.value))
+                  setSlots(
+                    Array.from(
+                      e.target.selectedOptions,
+                      (option) => option.value
+                    )
+                  )
                 }
                 className="select select-bordered w-full"
               >
