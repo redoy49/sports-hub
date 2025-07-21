@@ -4,8 +4,7 @@ import useAuth from '../hooks/useAuth';
 import useUserRole from '../hooks/useRole';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-
-const AdminRoute = ({ children }) => {
+const MemberRoute = ({ children }) => {
   const { user, isAuthLoading } = useAuth();
   const { role, roleLoading } = useUserRole();
   const location = useLocation();
@@ -15,17 +14,17 @@ const AdminRoute = ({ children }) => {
   }
 
   if (!user) {
-    // Not logged in, redirect to login page, preserve original location to redirect back after login
-    return <Navigate to="/login" state={{ from: location }} replace={true} />;
+    // Not logged in, redirect to login
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (role !== 'admin') {
-    // Logged in but not admin, redirect to forbidden page
-    return <Navigate to="/forbidden" replace={true} />;
+  if (role !== 'member') {
+    // Logged in but not a member, redirect to forbidden
+    return <Navigate to="/forbidden" replace />;
   }
 
-  // User is authenticated and admin: render protected content
+  // User is authenticated and has member role
   return children;
 };
 
-export default AdminRoute;
+export default MemberRoute;

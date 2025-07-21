@@ -74,6 +74,11 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to="/dashboard/payment-page">
+                  <FaMoneyBill /> Payment Page
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/dashboard/payment-history">
                   <FaMoneyBill /> Payment History
                 </NavLink>
@@ -85,7 +90,7 @@ const DashboardLayout = () => {
             <>
               <li>
                 <NavLink to="/dashboard/manage-bookings">
-                  <FaCalendarAlt /> Manage Bookings Approval
+                  <FaCalendarAlt /> Manage Bookings
                 </NavLink>
               </li>
               <li>
@@ -104,12 +109,12 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manage-bookings">
-                  <FaMoneyBill /> Manage Bookings
+                <NavLink to="/dashboard/manage-bookings-approval">
+                  <FaMoneyBill /> Manage Bookings Approval
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/make-coupons">
+                <NavLink to="/dashboard/manage-coupons">
                   <FaBullhorn /> Manage Coupons
                 </NavLink>
               </li>

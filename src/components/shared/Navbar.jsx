@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
 
-  const {role} = useUserRole()
+  const { role } = useUserRole();
   console.log(role);
 
   const handleLogout = async () => {
@@ -24,9 +24,17 @@ const Navbar = () => {
 
   const navLinks = (
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/courts">Courts</NavLink></li>
-      {user && <li><NavLink to="/dashboard">Dashboard</NavLink></li>}
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/courts">Courts</NavLink>
+      </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -37,10 +45,18 @@ const Navbar = () => {
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost p-0">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
             </svg>
           </button>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-gray-950">
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-gray-950"
+          >
             {navLinks}
           </ul>
         </div>
@@ -68,19 +84,37 @@ const Navbar = () => {
                   title={user?.displayName || "User"}
                 />
               </label>
-              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-gray-950 rounded-box w-52">
-                <li><span className="text-sm">{user.displayName || user.email}</span></li>
-                <li><Link to="/dashboard">Dashboard</Link></li>
-                <li><button onClick={handleLogout}>Logout</button></li>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-gray-950 rounded-box w-52"
+              >
+                <li>
+                  <span className="text-sm">
+                    {user.displayName || user.email}
+                  </span>
+                </li>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
               </ul>
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-sm btn-outline border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                Login
+              <Link
+                to="/login"
+                className="text-sm px-4 py-[5px] border border-indigo-600 text-indigo-600 rounded-full hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow hover:shadow-md transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
+              >
+                Sign In
               </Link>
-              <Link to="/register" className="btn btn-sm bg-green-600 text-white hover:bg-green-700">
-                Register
+
+              <Link
+                to="/register"
+                className="text-sm px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-full hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
+              >
+                Sign Up
               </Link>
             </>
           )}
