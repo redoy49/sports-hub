@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink, Outlet } from "react-router";
 import {
   FaHome,
-  FaUser,
   FaCalendarAlt,
   FaMoneyBill,
   FaUsers,
@@ -22,10 +21,12 @@ const DashboardLayout = () => {
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-content flex flex-col">
+        {/* Mobile Navbar */}
         <div className="lg:hidden">
           <Navbar />
         </div>
 
+        {/* Main Content */}
         <main className="p-4 flex-grow">
           <Outlet />
         </main>
@@ -37,8 +38,9 @@ const DashboardLayout = () => {
         <ul className="menu p-4 w-72 bg-base-200 text-base-content min-h-full">
           <h2 className="text-xl font-bold mb-4">SCMS Dashboard</h2>
 
+          {/* Dashboard Home */}
           <li>
-            <NavLink to="/dashboard">
+            <NavLink to="/dashboard" end>
               <FaHome /> Dashboard Home
             </NavLink>
           </li>
@@ -46,11 +48,6 @@ const DashboardLayout = () => {
           {/* User Dashboard (non-member) */}
           {!roleLoading && role === "user" && (
             <>
-              <li>
-                <NavLink to="/dashboard/profile">
-                  <FaUser /> My Profile
-                </NavLink>
-              </li>
               <li>
                 <NavLink to="/dashboard/pending-bookings">
                   <FaCalendarAlt /> Pending Bookings
@@ -67,11 +64,6 @@ const DashboardLayout = () => {
           {/* Member Dashboard */}
           {!roleLoading && role === "member" && (
             <>
-              <li>
-                <NavLink to="/dashboard/profile">
-                  <FaUser /> My Profile
-                </NavLink>
-              </li>
               <li>
                 <NavLink to="/dashboard/pending-bookings">
                   <FaCalendarAlt /> Pending Bookings
@@ -103,11 +95,6 @@ const DashboardLayout = () => {
           {/* Admin Dashboard */}
           {!roleLoading && role === "admin" && (
             <>
-              <li>
-                <NavLink to="/dashboard/admin-profile">
-                  <FaUser /> Admin Profile
-                </NavLink>
-              </li>
               <li>
                 <NavLink to="/dashboard/manage-bookings-approval">
                   <FaCheck /> Manage Bookings Approval

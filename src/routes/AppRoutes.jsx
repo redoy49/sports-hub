@@ -30,14 +30,15 @@ import ApprovedBookings from "../pages/Dashboard/MemberRoute/ApprovedBookings";
 import ConfirmedBookings from "../pages/Dashboard/MemberRoute/ConfirmedBookings";
 import PaymentPage from "../pages/Dashboard/MemberRoute/PaymentPage";
 import PaymentHistory from "../pages/Dashboard/MemberRoute/PaymentHistory";
-import MyProfile from "../pages/Dashboard/MemberRoute/MyProfile";
 
 // Common
 import Announcements from "../pages/Dashboard/common/Announcements";
 
 // User Route (Private, not member)
-import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBookings"; // You must create this
-import UserProfile from "../pages/Dashboard/UserRoute/UserProfile"; // You must create this
+import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBookings"; // Create this if needed
+
+// Home component that shows profile by role
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -65,14 +66,15 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      // 🔹 User Dashboard
+      // ✅ By default shows DashboardHome based on role (profile)
       {
-        path: "profile",
-        element: <UserProfile />, // Create this component
+        index: true,
+        element: <DashboardHome />,
       },
+
+      // 🔹 User Dashboard (non-member)
       {
         path: "pending-bookings",
-        // element: <UserPendingBookings />, // Create this component (only user bookings)
         element: <PendingBookings />,
       },
       {
@@ -81,14 +83,6 @@ const router = createBrowserRouter([
       },
 
       // 🔹 Member Dashboard
-      {
-        path: "profile",
-        element: (
-          <MemberRoute>
-            <MyProfile />
-          </MemberRoute>
-        ),
-      },
       {
         path: "pending-bookings",
         element: (
