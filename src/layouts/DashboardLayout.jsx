@@ -43,26 +43,40 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
 
-          {/* User & Member Common */}
-          <li>
-            <NavLink to="/dashboard/profile">
-              <FaUser /> My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/pending-bookings">
-              <FaCalendarAlt /> Pending Bookings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/announcements">
-              <FaBullhorn /> Announcements
-            </NavLink>
-          </li>
+          {/* User Dashboard (non-member) */}
+          {!roleLoading && role === "user" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/profile">
+                  <FaUser /> My Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/pending-bookings">
+                  <FaCalendarAlt /> Pending Bookings
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/announcements">
+                  <FaBullhorn /> Announcements
+                </NavLink>
+              </li>
+            </>
+          )}
 
-          {/* Member Exclusive */}
+          {/* Member Dashboard */}
           {!roleLoading && role === "member" && (
             <>
+              <li>
+                <NavLink to="/dashboard/profile">
+                  <FaUser /> My Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/pending-bookings">
+                  <FaCalendarAlt /> Pending Bookings
+                </NavLink>
+              </li>
               <li>
                 <NavLink to="/dashboard/approved-bookings">
                   <FaCheck /> Approved Bookings
@@ -78,19 +92,25 @@ const DashboardLayout = () => {
                   <FaMoneyBill /> Payment History
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/announcements">
+                  <FaBullhorn /> Announcements
+                </NavLink>
+              </li>
             </>
           )}
-          {/* Admin Exclusive */}
+
+          {/* Admin Dashboard */}
           {!roleLoading && role === "admin" && (
             <>
               <li>
-                <NavLink to="/dashboard/manage-bookings">
-                  <FaCalendarAlt /> Manage Bookings
+                <NavLink to="/dashboard/admin-profile">
+                  <FaUser /> Admin Profile
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manage-users">
-                  <FaUsers /> Manage Users
+                <NavLink to="/dashboard/manage-bookings-approval">
+                  <FaCheck /> Manage Bookings Approval
                 </NavLink>
               </li>
               <li>
@@ -99,23 +119,28 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li>
+                <NavLink to="/dashboard/manage-users">
+                  <FaUsers /> All Users
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/dashboard/manage-courts">
                   <FaCog /> Manage Courts
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/manage-bookings-approval">
-                  <FaMoneyBill /> Manage Bookings Approval
+                <NavLink to="/dashboard/manage-bookings">
+                  <FaCalendarAlt /> Manage Bookings
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/manage-coupons">
-                  <FaBullhorn /> Manage Coupons
+                  <FaMoneyBill /> Manage Coupons
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/make-announcements">
-                  <FaBullhorn /> Make Announcements
+                  <FaBullhorn /> Make Announcement
                 </NavLink>
               </li>
             </>

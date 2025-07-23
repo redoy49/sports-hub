@@ -7,28 +7,37 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
-import PrivateRoute from "./PrivateRoute";
-import CourtsPage from "../pages/Courts/Courts";
-import ManageCourts from "../pages/Dashboard/AdminRoute/ManageCourts";
-import AdminRoute from "./AdminRoute";
 import Forbidden from "../pages/Forbidden/Forbidden";
+
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 import MemberRoute from "./MemberRoute";
-import PendingBookings from "../pages/Dashboard/MemberRoute/PendingBookings";
-import ApprovedBookings from "../pages/Dashboard/MemberRoute/ApprovedBookings";
-import ConfirmedBookings from "../pages/Dashboard/MemberRoute/ConfirmedBookings";
-import PaymentPage from "../pages/Dashboard/MemberRoute/PaymentPage";
-import PaymentHistory from "../pages/Dashboard/MemberRoute/PaymentHistory";
+
+import CourtsPage from "../pages/Courts/Courts";
+
+// Admin
+import ManageCourts from "../pages/Dashboard/AdminRoute/ManageCourts";
 import AllUsers from "../pages/Dashboard/AdminRoute/AllUsers";
 import ManageMembers from "../pages/Dashboard/AdminRoute/ManageMembers";
 import ManageCoupons from "../pages/Dashboard/AdminRoute/ManageCoupons";
 import ManageBookings from "../pages/Dashboard/AdminRoute/ManageBookings";
 import ManageBookingsApproval from "../pages/Dashboard/AdminRoute/ManageBookingsApproval";
 import MakeAnnouncements from "../pages/Dashboard/AdminRoute/MakeAnnouncements";
+
+// Member
+import PendingBookings from "../pages/Dashboard/MemberRoute/PendingBookings";
+import ApprovedBookings from "../pages/Dashboard/MemberRoute/ApprovedBookings";
+import ConfirmedBookings from "../pages/Dashboard/MemberRoute/ConfirmedBookings";
+import PaymentPage from "../pages/Dashboard/MemberRoute/PaymentPage";
+import PaymentHistory from "../pages/Dashboard/MemberRoute/PaymentHistory";
 import MyProfile from "../pages/Dashboard/MemberRoute/MyProfile";
+
+// Common
 import Announcements from "../pages/Dashboard/common/Announcements";
 
-// Placeholder dashboard pages
-// import UserDashboard from "../pages/Dashboard/UserDashboard";
+// User Route (Private, not member)
+import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBookings"; // You must create this
+import UserProfile from "../pages/Dashboard/UserRoute/UserProfile"; // You must create this
 
 const router = createBrowserRouter([
   {
@@ -36,10 +45,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: "/", element: <Home /> },
-      {
-        path: "/courts",
-        element: <CourtsPage />,
-      },
+      { path: "/courts", element: <CourtsPage /> },
       { path: "forbidden", element: <Forbidden /> },
     ],
   },
@@ -59,74 +65,28 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { index: true, element: <p>User</p> },
+      // 🔹 User Dashboard
+      {
+        path: "profile",
+        element: <UserProfile />, // Create this component
+      },
+      {
+        path: "pending-bookings",
+        // element: <UserPendingBookings />, // Create this component (only user bookings)
+        element: <PendingBookings />,
+      },
       {
         path: "announcements",
         element: <Announcements />,
       },
+
+      // 🔹 Member Dashboard
       {
         path: "profile",
-        element: <MyProfile />,
-      },
-      {
-        path: "pending-bookings",
-        element: <PendingBookings />,
-      },
-
-      {
-        path: "manage-courts",
         element: (
-          <AdminRoute>
-            <ManageCourts />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "manage-users",
-        element: (
-          <AdminRoute>
-            <AllUsers />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "manage-members",
-        element: (
-          <AdminRoute>
-            <ManageMembers />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "manage-bookings",
-        element: (
-          <AdminRoute>
-            <ManageBookings />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "manage-bookings-approval",
-        element: (
-          <AdminRoute>
-            <ManageBookingsApproval />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "make-announcements",
-        element: (
-          <AdminRoute>
-            <MakeAnnouncements />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "manage-coupons",
-        element: (
-          <AdminRoute>
-            <ManageCoupons />
-          </AdminRoute>
+          <MemberRoute>
+            <MyProfile />
+          </MemberRoute>
         ),
       },
       {
@@ -170,14 +130,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "profile",
-        element: (
-          <MemberRoute>
-            <MyProfile />
-          </MemberRoute>
-        ),
-      },
-      {
         path: "announcements",
         element: (
           <MemberRoute>
@@ -185,7 +137,64 @@ const router = createBrowserRouter([
           </MemberRoute>
         ),
       },
-      // You can add admin/member pages here later
+
+      // 🔹 Admin Dashboard
+      {
+        path: "manage-courts",
+        element: (
+          <AdminRoute>
+            <ManageCourts />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-members",
+        element: (
+          <AdminRoute>
+            <ManageMembers />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-bookings",
+        element: (
+          <AdminRoute>
+            <ManageBookings />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-bookings-approval",
+        element: (
+          <AdminRoute>
+            <ManageBookingsApproval />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-coupons",
+        element: (
+          <AdminRoute>
+            <ManageCoupons />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "make-announcements",
+        element: (
+          <AdminRoute>
+            <MakeAnnouncements />
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);
