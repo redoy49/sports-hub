@@ -25,6 +25,7 @@ import ManageBookings from "../pages/Dashboard/AdminRoute/ManageBookings";
 import ManageBookingsApproval from "../pages/Dashboard/AdminRoute/ManageBookingsApproval";
 import MakeAnnouncements from "../pages/Dashboard/AdminRoute/MakeAnnouncements";
 import MyProfile from "../pages/Dashboard/MemberRoute/MyProfile";
+import Announcements from "../pages/Dashboard/common/Announcements";
 
 // Placeholder dashboard pages
 // import UserDashboard from "../pages/Dashboard/UserDashboard";
@@ -56,9 +57,22 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <DashboardLayout />
       </PrivateRoute>
-    ), 
+    ),
     children: [
       { index: true, element: <p>User</p> },
+      {
+        path: "announcements",
+        element: <Announcements />,
+      },
+      {
+        path: "profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "pending-bookings",
+        element: <PendingBookings />,
+      },
+
       {
         path: "manage-courts",
         element: (
@@ -140,7 +154,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "payment-page",
+        path: "payment-page/:id",
         element: (
           <MemberRoute>
             <PaymentPage />
@@ -160,6 +174,14 @@ const router = createBrowserRouter([
         element: (
           <MemberRoute>
             <MyProfile />
+          </MemberRoute>
+        ),
+      },
+      {
+        path: "announcements",
+        element: (
+          <MemberRoute>
+            <Announcements />
           </MemberRoute>
         ),
       },

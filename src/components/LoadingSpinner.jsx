@@ -21,4 +21,3 @@ const LoadingSpinner = ({ loading = true, color = "#000000", height = 35, width 
 };
 
 export default LoadingSpinner;
-

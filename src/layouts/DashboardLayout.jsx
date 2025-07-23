@@ -74,11 +74,6 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/payment-page">
-                  <FaMoneyBill /> Payment Page
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/dashboard/payment-history">
                   <FaMoneyBill /> Payment History
                 </NavLink>

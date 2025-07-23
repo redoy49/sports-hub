@@ -1,11 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
-const PaymentPage = () => {
+// Load Stripe with your publishable key
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+const Payment = () => {
   return (
     <div>
-      Payment Page
+      <h1>Stripe Manual Payment Example</h1>
+      <Elements stripe={stripePromise}>
+        <CheckoutForm />
+      </Elements>
     </div>
   );
 };
 
-export default PaymentPage;
+export default Payment;
