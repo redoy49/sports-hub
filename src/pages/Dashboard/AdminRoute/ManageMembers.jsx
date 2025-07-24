@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Swal from "sweetalert2";
 
 const fetchMembers = async (axiosSecure, name) => {
   const res = await axiosSecure.get(`/members?name=${name}`);
@@ -28,22 +29,32 @@ const ManageMembers = () => {
       await axiosSecure.delete(`/members/${id}`);
     },
     onSuccess: () => {
-      toast.success("Member deleted");
+      Swal.fire("Deleted!", "The member has been deleted.", "success");
       queryClient.invalidateQueries({ queryKey: ["members"] });
     },
     onError: () => toast.error("Failed to delete member"),
   });
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this member?")) {
-      deleteMutation.mutate(id);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to delete this member?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id);
+      }
+    });
   };
 
   const handleSearch = (e) => {
     const name = e.target.value;
     setSearch(name);
-    refetch(); // optional because queryKey contains search
+    refetch(); 
   };
 
   return (
