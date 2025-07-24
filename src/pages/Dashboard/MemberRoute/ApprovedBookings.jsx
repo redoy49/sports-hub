@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const ApprovedBookings = () => {
   const { user } = useAuth();
@@ -57,7 +58,7 @@ const ApprovedBookings = () => {
       <h2 className="text-xl font-semibold mb-4">Approved Bookings</h2>
 
       {/* ⏳ Loading State */}
-      {isLoading && <p>Loading approved bookings...</p>}
+      {isLoading && <LoadingSpinner/>}
 
       {/* ❌ Error State */}
       {isError && <p className="text-red-500">Error: {error.message}</p>}

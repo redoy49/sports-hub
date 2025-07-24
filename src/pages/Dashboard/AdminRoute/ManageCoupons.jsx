@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const ManageCoupons = () => {
   const axiosSecure = useAxiosSecure();
@@ -100,7 +101,7 @@ const ManageCoupons = () => {
 
       <h2 className="text-xl font-semibold mb-2">All Coupons</h2>
       {isLoading ? (
-        <p>Loading...</p>
+        <LoadingSpinner/>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full border">

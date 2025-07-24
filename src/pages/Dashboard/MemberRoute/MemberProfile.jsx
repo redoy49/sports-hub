@@ -1,11 +1,12 @@
 // components/MemberProfile.jsx
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
-import useAxios from '../../../hooks/useAxios';
+import LoadingSpinner from '../../../components/LoadingSpinner';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const MemberProfile = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const { data: member = {}, isLoading } = useQuery({
     queryKey: ['member', user?.email],
@@ -16,7 +17,7 @@ const MemberProfile = () => {
     },
   });
 
-  if (isLoading) return <span className="loading loading-spinner"></span>;
+  if (isLoading) return <LoadingSpinner/>;
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-xl rounded-xl p-6">

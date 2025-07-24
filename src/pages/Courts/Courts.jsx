@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CourtsPage = () => {
   const [courts, setCourts] = useState([]);
@@ -10,7 +10,7 @@ const CourtsPage = () => {
   const [slots, setSlots] = useState([]);
   const { user } = useAuth();
   const navigate = useNavigate();
-  const axiosInstance = useAxios();
+  const axiosInstance = useAxiosSecure();
 
   // Fetch courts on mount
   useEffect(() => {

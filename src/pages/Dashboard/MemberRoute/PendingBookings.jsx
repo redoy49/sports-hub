@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const PendingBookings = () => {
   const { user } = useAuth();
@@ -50,7 +51,7 @@ const PendingBookings = () => {
       <h2 className="text-xl font-semibold mb-4">Pending Bookings</h2>
 
       {/* ⏳ Loading */}
-      {isLoading && <p>Loading pending bookings...</p>}
+      {isLoading && <LoadingSpinner/>}
 
       {/* ❌ Error */}
       {isError && <p className="text-red-500">Error: {error.message}</p>}

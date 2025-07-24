@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const usePendingBookings = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,7 +36,7 @@ const ManageBookingsApproval = () => {
     },
   });
 
-  if (isLoading) return <p>Loading pending bookings...</p>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="p-4">

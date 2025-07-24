@@ -2,6 +2,7 @@ import React from "react";
 import useAnnouncements from "../../../hooks/useAnnouncements";
 import { FaBullhorn } from "react-icons/fa";
 import { format } from "date-fns";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const Announcements = () => {
   const {
@@ -12,7 +13,7 @@ const Announcements = () => {
   } = useAnnouncements();
 
   if (isLoading) {
-    return <p className="text-center text-gray-600 mt-6">Loading announcements...</p>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {

@@ -1,14 +1,15 @@
 // components/AdminProfile.jsx
-import { useQuery } from '@tanstack/react-query';
-import useAuth from '../../../hooks/useAuth';
-import useAxios from '../../../hooks/useAxios';
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const AdminProfile = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const { data: admin = {}, isLoading: loadingAdmin } = useQuery({
-    queryKey: ['admin', user?.email],
+    queryKey: ["admin", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/email/${user.email}`);
@@ -17,7 +18,7 @@ const AdminProfile = () => {
   });
 
   const { data: courts = [] } = useQuery({
-    queryKey: ['courts'],
+    queryKey: ["courts"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/courts`);
       return res.data;
@@ -25,21 +26,25 @@ const AdminProfile = () => {
   });
 
   const { data: users = [] } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users`);
       return res.data;
     },
   });
 
-  const totalMembers = users.filter(u => u.role === 'member').length;
+  const totalMembers = users.filter((u) => u.role === "member").length;
 
-  if (loadingAdmin) return <span className="loading loading-spinner"></span>;
+  if (loadingAdmin) return <LoadingSpinner />;
 
   return (
     <div className="max-w-xl mx-auto bg-white shadow-xl rounded-xl p-6">
       <div className="flex flex-col items-center mb-6">
-        <img src={admin.image} alt="Admin" className="w-24 h-24 rounded-full mb-4" />
+        <img
+          src={admin.image}
+          alt="Admin"
+          className="w-24 h-24 rounded-full mb-4"
+        />
         <h2 className="text-xl font-bold">{admin.name}</h2>
         <p className="text-gray-600">{admin.email}</p>
       </div>

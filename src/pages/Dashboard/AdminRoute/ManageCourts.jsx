@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import toast from "react-hot-toast";
-import useAxios from "../../../hooks/useAxios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const ManageCourts = () => {
-  const axiosInstance = useAxios();
+  const axiosInstance = useAxiosSecure();
+  const queryClient = useQueryClient();
 
-  const [courts, setCourts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchCourts = async () => {
-    try {
+  // ⏬ Use TanStack Query to fetch courts
+  const {
+    data: courts = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["courts"],
+    queryFn: async () => {
       const res = await axiosInstance.get("/courts");
-      setCourts(res.data);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to load courts");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCourts();
-  }, []);
+      return res.data;
+    },
+  });
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure?")) {
       try {
         await axiosInstance.delete(`/courts/${id}`);
         toast.success("Court deleted");
-        setCourts((prev) => prev.filter((court) => court._id !== id));
+        queryClient.invalidateQueries(["courts"]);
       } catch (err) {
         console.error(err);
         toast.error("Delete failed");
@@ -46,20 +43,19 @@ const ManageCourts = () => {
       image: "https://via.placeholder.com/150",
     };
     try {
-      const res = await axiosInstance.post("/courts", newCourt);
-      setCourts((prev) => [...prev, res.data]);
+      await axiosInstance.post("/courts", newCourt);
       toast.success("New court added");
+      queryClient.invalidateQueries(["courts"]);
     } catch (err) {
       console.error(err);
       toast.error("Add court failed");
     }
-    console.log("New Court", newCourt);
   };
 
   const handleUpdate = async (id) => {
     const name = prompt("Enter new court name");
     const price = Number(prompt("Enter new price"));
-    
+
     if (!name || isNaN(price)) {
       toast.error("Invalid input for update");
       return;
@@ -69,8 +65,8 @@ const ManageCourts = () => {
 
     try {
       await axiosInstance.patch(`/courts/${id}`, updatedCourt);
-      fetchCourts();
       toast.success("Court updated");
+      queryClient.invalidateQueries(["courts"]);
     } catch (err) {
       console.error(err);
       toast.error("Update failed");
@@ -86,8 +82,10 @@ const ManageCourts = () => {
         </button>
       </div>
 
-      {loading ? (
-        <span className="loading loading-spinner loading-lg"></span>
+      {isLoading ? (
+        <LoadingSpinner/>
+      ) : isError ? (
+        <p className="text-red-500">Failed to load courts</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table">
@@ -128,4 +126,3 @@ const ManageCourts = () => {
 };
 
 export default ManageCourts;
-

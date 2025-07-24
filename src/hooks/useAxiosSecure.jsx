@@ -8,24 +8,29 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user, logOut } = useAuth();
+  const { user, isAuthLoading, logoutUser } = useAuth();
   const navigate = useNavigate();
-  console.log("User", user);
 
   useEffect(() => {
-    if (!user) return;
-    // Set request interceptor
+    if (isAuthLoading) return;
+
     const requestInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
-        const token = await user.getIdToken(); // Firebase user token
-       console.log("Token", token);
-        config.headers.Authorization = `Bearer ${token}`;
+        if (!user) return config;
+
+        try {
+          const token = await user.getIdToken(true); // ✅ force refresh token
+          console.log("Token", token);
+          config.headers.Authorization = `Bearer ${token}`;
+        } catch (err) {
+          console.error("Error getting token", err);
+        }
+
         return config;
       },
       (error) => Promise.reject(error)
     );
 
-    // Set response interceptor
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (res) => res,
       (error) => {
@@ -33,21 +38,22 @@ const useAxiosSecure = () => {
         console.log("Axios error -->", status);
 
         if (status === 401 || status === 403) {
-          logOut();
+          logoutUser();
           navigate("/login");
         }
+
         return Promise.reject(error);
       }
     );
 
-    // Clean up interceptors on unmount
     return () => {
       axiosSecure.interceptors.request.eject(requestInterceptor);
       axiosSecure.interceptors.response.eject(responseInterceptor);
     };
-  }, [user, logOut, navigate]);
+  }, [user, isAuthLoading, logoutUser, navigate]);
 
   return axiosSecure;
 };
 
 export default useAxiosSecure;
+
