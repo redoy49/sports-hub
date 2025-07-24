@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Swal from "sweetalert2";
 
 const usePendingBookings = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,7 +23,13 @@ const ManageBookingsApproval = () => {
   const approveBooking = useMutation({
     mutationFn: async (id) => axiosSecure.patch(`/bookings/approve/${id}`),
     onSuccess: () => {
-      toast.success("Booking approved");
+      Swal.fire({
+        icon: "success",
+        title: "Approved!",
+        text: "Booking approved successfully.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
       queryClient.invalidateQueries(["pending-bookings"]);
     },
   });
@@ -31,7 +37,13 @@ const ManageBookingsApproval = () => {
   const rejectBooking = useMutation({
     mutationFn: async (id) => axiosSecure.patch(`/bookings/reject/${id}`),
     onSuccess: () => {
-      toast.success("Booking rejected");
+      Swal.fire({
+        icon: "success",
+        title: "Rejected!",
+        text: "Booking rejected successfully.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
       queryClient.invalidateQueries(["pending-bookings"]);
     },
   });
@@ -40,46 +52,61 @@ const ManageBookingsApproval = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Manage Booking Approvals</h2>
+      <h2 className="text-xl font-bold mb-4">📋 Manage Booking Approvals</h2>
+
       {bookings.length === 0 ? (
-        <p>No pending bookings available.</p>
+        <p className="text-gray-500">No pending bookings available.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table-auto w-full border">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2">User</th>
-                <th className="p-2">Court</th>
-                <th className="p-2">Slot</th>
-                <th className="p-2">Price</th>
-                <th className="p-2">Date</th>
-                <th className="p-2">Actions</th>
+          <table className="table w-full border border-gray-200">
+            <thead className="bg-base-200 text-sm">
+              <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Court</th>
+                <th>Slot</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {bookings.map((booking) => (
-                <tr key={booking._id} className="border-t">
-                  <td className="p-2">{booking.userEmail}</td>
-                  <td className="p-2">{booking.courtName}</td>
-                  <td className="p-2">{booking.slot}</td>
-                  <td className="p-2">${booking.price}</td>
-                  <td className="p-2">{booking.date}</td>
-                  <td className="p-2 space-x-2">
+              {bookings.map((booking, index) => (
+                <tr
+                  key={booking._id}
+                  className="hover:bg-base-100 transition-colors"
+                >
+                  <td>{index + 1}</td>
+                  <td>{booking.userEmail}</td>
+                  <td>{booking.courtName}</td>
+                   <td>{booking.slots?.join(", ") || "N/A"}</td>
+                  <td className="text-green-600 font-semibold">
+                    ${booking.price}
+                  </td>
+                  <td>{new Date(booking.date).toLocaleDateString()}</td>
+                  <td className="flex gap-2 justify-center items-center py-2">
                     <button
                       onClick={() => approveBooking.mutate(booking._id)}
-                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                      className="btn btn-xs md:btn-sm btn-success text-white"
                     >
                       Approve
                     </button>
                     <button
                       onClick={() => rejectBooking.mutate(booking._id)}
-                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                      className="btn btn-xs md:btn-sm btn-error text-white"
                     >
                       Reject
                     </button>
                   </td>
                 </tr>
               ))}
+              {bookings.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="text-center py-4 text-gray-500">
+                    No pending bookings found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
