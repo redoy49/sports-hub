@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { RiCoupon3Line } from "react-icons/ri";
 
 const ManageCoupons = () => {
   const axiosSecure = useAxiosSecure();
@@ -79,9 +80,11 @@ const ManageCoupons = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="flex items-center gap-1 text-xl font-semibold mb-4">
+        <RiCoupon3Line className="text-blue-500" />
         {editingCoupon ? "Update Coupon" : "Add New Coupon"}
       </h2>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 mb-6">
         <input
           {...register("code", { required: true })}
@@ -94,23 +97,24 @@ const ManageCoupons = () => {
           type="number"
           placeholder="Discount %"
         />
-        <button className="btn btn-primary">
-          {editingCoupon ? "Update" : "Add"}
+        <button className="btn bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+          {editingCoupon ? "Update Coupon" : "Add Coupon"}
         </button>
       </form>
 
       <h2 className="text-xl font-semibold mb-2">All Coupons</h2>
+
       {isLoading ? (
-        <LoadingSpinner/>
+        <LoadingSpinner />
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full border">
-            <thead>
+          <table className="table w-full border border-gray-200">
+            <thead className="bg-base-200">
               <tr>
                 <th>#</th>
                 <th>Code</th>
                 <th>Discount (%)</th>
-                <th>Actions</th>
+                <th className="text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -119,15 +123,15 @@ const ManageCoupons = () => {
                   <td>{idx + 1}</td>
                   <td>{coupon.code}</td>
                   <td>{coupon.discount}%</td>
-                  <td>
+                  <td className="text-right space-x-2">
                     <button
-                      className="btn btn-xs btn-warning mr-2"
+                      className="btn btn-xs md:btn-sm text-white bg-blue-400 hover:bg-blue-500"
                       onClick={() => handleEdit(coupon)}
                     >
                       Edit
                     </button>
                     <button
-                      className="btn btn-xs btn-error"
+                      className="btn btn-xs md:btn-sm text-white bg-red-400 hover:bg-red-500"
                       onClick={() => handleDelete(coupon._id)}
                     >
                       Delete
@@ -137,8 +141,8 @@ const ManageCoupons = () => {
               ))}
               {coupons.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="text-center text-gray-500">
-                    No coupons found
+                  <td colSpan="4" className="text-center py-4 text-gray-500">
+                    No coupons found.
                   </td>
                 </tr>
               )}

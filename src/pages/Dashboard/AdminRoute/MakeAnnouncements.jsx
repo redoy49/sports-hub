@@ -80,7 +80,7 @@ const MakeAnnouncements = () => {
   return (
     <div className="p-4">
       <h2 className="flex items-center gap-1 text-xl font-bold mb-4">
-        <MdOutlineAnnouncement />
+        <MdOutlineAnnouncement className="text-blue-600" />
         Manage Announcements
       </h2>
 
