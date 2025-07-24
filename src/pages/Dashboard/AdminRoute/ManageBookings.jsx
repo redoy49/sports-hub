@@ -4,20 +4,20 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const query = search ? `?title=${search}` : "";
         const res = await axiosSecure.get(`/bookings/confirmed${query}`);
         setBookings(res.data);
       } catch (err) {
         console.error("Error loading confirmed bookings:", err);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -26,46 +26,55 @@ const ManageBookings = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">📋 Manage Confirmed Bookings</h2>
+      <h2 className="flex items-center gap-1 text-xl font-bold mb-4">
+        📋 Manage Confirmed Bookings
+      </h2>
 
       <input
         type="text"
         placeholder="Search by court title..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="mb-4 p-2 border w-full max-w-md rounded-md"
+        className="input input-bordered w-full max-w-md mb-6"
       />
 
-      {loading ? ( 
+      {loading ? (
         <div className="flex justify-center items-center py-10">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table-auto w-full border border-gray-200">
-            <thead className="bg-gray-100">
+          <table className="table w-full border border-gray-200">
+            <thead className="bg-base-200 text-sm">
               <tr>
-                <th className="p-2 border">#</th>
-                <th className="p-2 border">Court</th>
-                <th className="p-2 border">Date</th>
-                <th className="p-2 border">Slot</th>
-                <th className="p-2 border">User</th>
-                <th className="p-2 border">Email</th>
-                <th className="p-2 border">Price</th>
-                <th className="p-2 border">Status</th>
+                <th>#</th>
+                <th>Court</th>
+                <th>Date</th>
+                <th>Slot</th>
+                <th>Email</th>
+                <th>Price</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {bookings.map((booking, index) => (
-                <tr key={booking._id}>
-                  <td className="p-2 border text-center">{index + 1}</td>
-                  <td className="p-2 border">{booking.courtName}</td>
-                  <td className="p-2 border">{new Date(booking.date).toLocaleDateString()}</td>
-                  <td className="p-2 border">{booking.slot}</td>
-                  <td className="p-2 border">{booking.userName || "N/A"}</td>
-                  <td className="p-2 border">{booking.userEmail}</td>
-                  <td className="p-2 border">${booking.price}</td>
-                  <td className="p-2 border text-green-600 font-semibold">{booking.status}</td>
+                <tr
+                  key={booking._id}
+                  className="hover:bg-base-100 transition-colors"
+                >
+                  <td>{index + 1}</td>
+                  <td>{booking.courtName}</td>
+                  <td>{new Date(booking.date).toLocaleDateString()}</td>
+                  <td>{booking.slots?.join(", ") || "N/A"}</td>
+                  <td>{booking.userEmail}</td>
+                  <td className="text-green-600 font-semibold">
+                    ${booking.price}
+                  </td>
+                  <td>
+                    <span className="btn btn-xs md:btn-sm btn-success text-white capitalize">
+                      {booking.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
               {bookings.length === 0 && (
