@@ -25,23 +25,29 @@ const ManageBookings = () => {
   }, [axiosSecure, search]);
 
   return (
-    <div className="p-4">
-      <h2 className="flex items-center gap-1 text-xl font-bold mb-4">
-        📋 Manage Confirmed Bookings
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
+        📋 Manage Booking Approvals
       </h2>
 
-      <input
-        type="text"
-        placeholder="Search by court title..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="input input-bordered w-full max-w-md mb-6"
-      />
+      {/* Styled Search Input */}
+      <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
+        <input
+          type="text"
+          placeholder="Search by court title..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
+        />
+        <i className="fas fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
+      </div>
 
       {loading ? (
         <div className="flex justify-center items-center py-10">
           <span className="loading loading-spinner loading-lg"></span>
         </div>
+      ) : bookings.length === 0 ? (
+        <p className="text-gray-500 italic">No pending bookings available.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full border border-gray-200">
@@ -77,13 +83,6 @@ const ManageBookings = () => {
                   </td>
                 </tr>
               ))}
-              {bookings.length === 0 && (
-                <tr>
-                  <td colSpan={8} className="text-center py-4 text-gray-500">
-                    No confirmed bookings found.
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         </div>

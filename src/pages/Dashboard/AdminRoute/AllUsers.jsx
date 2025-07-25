@@ -32,19 +32,20 @@ const AllUsers = () => {
 
   return (
     <div className="p-4">
-      <h2 className="flex items-center gap-1 text-xl font-bold mb-4">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-1">
         👤 All Users
       </h2>
 
-      {/* Search bar */}
-      <div className="relative w-full max-w-md mb-6">
+      {/* Styled Search Bar */}
+      <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
         <input
           type="text"
           placeholder="Search by name or email..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="input input-bordered w-full pr-10"
+          className="w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
         />
+        <i className="fas fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
       </div>
 
       {/* User Table */}

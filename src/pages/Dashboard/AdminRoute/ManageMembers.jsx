@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import Swal from "sweetalert2";
 
-const fetchMembers = async (axiosSecure, name) => {
-  const res = await axiosSecure.get(`/members?name=${name}`);
+const fetchMembers = async (axiosSecure) => {
+  const res = await axiosSecure.get("/members");
   return res.data;
 };
 
@@ -18,10 +18,11 @@ const ManageMembers = () => {
   const {
     data: members = [],
     isLoading,
-    refetch,
+    isError,
+    error,
   } = useQuery({
-    queryKey: ["members", search],
-    queryFn: () => fetchMembers(axiosSecure, search),
+    queryKey: ["members"],
+    queryFn: () => fetchMembers(axiosSecure),
   });
 
   const deleteMutation = useMutation({
@@ -52,47 +53,65 @@ const ManageMembers = () => {
   };
 
   const handleSearch = (e) => {
-    const name = e.target.value;
-    setSearch(name);
-    refetch(); 
+    setSearch(e.target.value);
   };
 
+  const filteredMembers = members.filter((member) =>
+    `${member.name} ${member.email}`.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Manage Members</h2>
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        👥 Manage Members
+      </h2>
 
-      <input
-        type="text"
-        placeholder="Search by name"
-        className="input input-bordered mb-4 w-full max-w-sm"
-        value={search}
-        onChange={handleSearch}
-      />
+      {/* Custom Search Input */}
+      <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          className="search-input w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
+          value={search}
+          onChange={handleSearch}
+        />
+        <i className="fas fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
+      </div>
 
+      {/* Data Display */}
       {isLoading ? (
-        <LoadingSpinner />
-      ) : members.length === 0 ? (
-        <div className="text-center text-gray-500">No members found.</div>
+        <div className="flex justify-center items-center py-10">
+          <LoadingSpinner />
+        </div>
+      ) : isError ? (
+        <p className="text-center text-red-500">Error: {error.message}</p>
+      ) : filteredMembers.length === 0 ? (
+        <div className="text-center text-gray-500 italic">
+          No members found.
+        </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
-            <thead className="bg-base-200 text-base font-semibold">
+          <table className="table w-full">
+            <thead className="bg-blue-50 text-sm font-semibold text-gray-700">
               <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Joined</th>
-                <th>Action</th>
+                <th className="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {members.map((member, index) => (
-                <tr key={member._id}>
+              {filteredMembers.map((member, index) => (
+                <tr
+                  key={member._id}
+                  className="hover:bg-base-100 transition-colors"
+                >
                   <td>{index + 1}</td>
                   <td>{member.name}</td>
                   <td>{member.email}</td>
                   <td>{new Date(member.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td className="text-center">
                     <button
                       onClick={() => handleDelete(member._id)}
                       className="btn btn-sm btn-error text-white"

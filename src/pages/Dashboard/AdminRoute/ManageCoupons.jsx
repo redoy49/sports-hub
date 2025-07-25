@@ -79,7 +79,11 @@ const ManageCoupons = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
+        📋 Manage Booking Approvals
+      </h2>
+
       <h2 className="flex items-center gap-1 text-xl font-semibold mb-4">
         <RiCoupon3Line className="text-blue-500" />
         {editingCoupon ? "Update Coupon" : "Add New Coupon"}
@@ -88,16 +92,16 @@ const ManageCoupons = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 mb-6">
         <input
           {...register("code", { required: true })}
-          className="input input-bordered w-full"
+          className="w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
           placeholder="Coupon Code"
         />
         <input
           {...register("discount", { required: true })}
-          className="input input-bordered w-full"
           type="number"
+          className="w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
           placeholder="Discount %"
         />
-        <button className="btn bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+        <button className="btn bg-gradient-to-r  rounded-full from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
           {editingCoupon ? "Update Coupon" : "Add Coupon"}
         </button>
       </form>

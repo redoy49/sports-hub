@@ -78,8 +78,8 @@ const MakeAnnouncements = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="p-4">
-      <h2 className="flex items-center gap-1 text-xl font-bold mb-4">
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800 flex items-center gap-1">
         <MdOutlineAnnouncement className="text-blue-600" />
         Manage Announcements
       </h2>
@@ -88,13 +88,13 @@ const MakeAnnouncements = () => {
         <input
           type="text"
           placeholder="Write announcement"
-          className="input input-bordered w-full"
+          className="w-full bg-white border border-gray-300 text-gray-700 rounded-full shadow-xs leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm pl-6 pr-4 py-2"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
         <button
           type="submit"
-          className="btn bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
+          className="btn bg-gradient-to-r from-indigo-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75"
         >
           {editId ? "Update" : "Add"}
         </button>
@@ -105,7 +105,7 @@ const MakeAnnouncements = () => {
               setEditId(null);
               setText("");
             }}
-            className="btn bg-white/80 hover:bg-white backdrop-blur-sm text-sm transition-all duration-300 border border-gray-300/50 shadow-sm hover:shadow-md"
+            className="btn bg-white/80 hover:bg-white backdrop-blur-sm text-sm transition-all duration-300 border rounded-full border-gray-300/50 shadow-sm hover:shadow-md"
           >
             Cancel
           </button>

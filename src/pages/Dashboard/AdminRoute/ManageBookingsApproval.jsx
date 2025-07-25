@@ -51,15 +51,17 @@ const ManageBookingsApproval = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">📋 Manage Booking Approvals</h2>
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
+        📋 Manage Booking Approvals
+      </h2>
 
       {bookings.length === 0 ? (
-        <p className="text-gray-500">No pending bookings available.</p>
+        <p className="text-gray-500 italic">No pending bookings available.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full border border-gray-200">
-            <thead className="bg-base-200 text-sm">
+          <table className="table w-full">
+            <thead className="bg-blue-50 text-sm">
               <tr>
                 <th>#</th>
                 <th>User</th>
@@ -79,7 +81,7 @@ const ManageBookingsApproval = () => {
                   <td>{index + 1}</td>
                   <td>{booking.userEmail}</td>
                   <td>{booking.courtName}</td>
-                   <td>{booking.slots?.join(", ") || "N/A"}</td>
+                  <td>{booking.slots?.join(", ") || "N/A"}</td>
                   <td className="text-green-600 font-semibold">
                     ${booking.price}
                   </td>
