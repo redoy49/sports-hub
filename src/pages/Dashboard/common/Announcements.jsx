@@ -25,29 +25,45 @@ const Announcements = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-10 bg-white shadow-xl rounded-2xl">
-      <div className="flex items-center gap-2 mb-6">
-        <FaBullhorn className="text-blue-600 text-xl" />
-        <h2 className="text-2xl font-bold text-gray-800">Club Announcements</h2>
-      </div>
+    <div className="overflow-x-auto max-w-6xl mx-auto mt-16 lg:mt-2 bg-white rounded-sm border border-gray-200 px-4 py-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <FaBullhorn className="text-blue-600 text-2xl" />
+        Club Announcements
+      </h2>
 
-      {announcements.length === 0 ? (
-        <p className="text-gray-500 text-center">No announcements yet.</p>
-      ) : (
-        <div className="space-y-4 max-h-[400px] overflow-y-auto">
-          {announcements.map((announcement) => (
-            <div
-              key={announcement._id}
-              className="border-l-4 border-blue-600 bg-blue-50 p-4 rounded-md shadow-sm hover:shadow-md transition"
-            >
-              <p className="text-gray-800">{announcement.text}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                📅 {format(new Date(announcement.createdAt), "PPP p")}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="overflow-x-auto">
+        <table className="table w-full border border-gray-200">
+          <thead className="bg-blue-50 text-gray-700">
+            <tr>
+              <th>#</th>
+              <th>Announcement</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {announcements.length > 0 ? (
+              announcements.map((a, index) => (
+                <tr key={a._id} className="hover:bg-blue-50 transition">
+                  <td className="font-medium">{index + 1}</td>
+                  <td>{a.text}</td>
+                  <td className="text-sm text-gray-500">
+                    {format(new Date(a.createdAt), "PPP p")}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="3"
+                  className="text-center py-6 text-gray-500 italic"
+                >
+                  No announcements yet.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
