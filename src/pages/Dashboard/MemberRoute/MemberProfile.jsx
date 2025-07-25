@@ -16,21 +16,28 @@ const MemberProfile = () => {
       return res.data;
     },
   });
+  console.log("Member", member);
 
   if (isLoading) return <LoadingSpinner/>;
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-xl rounded-xl p-6">
-      <div className="flex flex-col items-center">
-        <img src={member.image} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-        <h2 className="text-xl font-bold">{member.name}</h2>
-        <p className="text-gray-600">{member.email}</p>
-        <p className="mt-4 text-sm text-gray-500">
-          Became member on: <strong>{new Date(member.membershipDate).toLocaleDateString()}</strong>
-        </p>
-      </div>
+  <div className="max-w-4xl mx-auto bg-white rounded-xl px-6 py-24">
+    <div className="flex flex-col items-center">
+      <img
+        src={member.image}
+        alt="Profile"
+        className="w-24 h-24 rounded-full mb-4 ring-4 ring-blue-300"
+      />
+      <h2 className="text-2xl font-semibold text-gray-800">{member.name}</h2>
+      <p className="text-gray-600">{member.email}</p>
+      <p className="mt-4 text-sm text-gray-500">
+        Became member on:{" "}
+        <strong>{new Date(member.membershipDate).toLocaleDateString()}</strong>
+      </p>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default MemberProfile;

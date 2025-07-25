@@ -10,7 +10,9 @@ const ConfirmedBookings = () => {
   useEffect(() => {
     const fetchConfirmedBookings = async () => {
       try {
-        const res = await axiosSecure.get(`/bookings/confirmed?email=${user.email}`);
+        const res = await axiosSecure.get(
+          `/bookings/confirmed?email=${user.email}`
+        );
         setBookings(res.data);
       } catch (error) {
         console.error("Failed to load confirmed bookings", error);
@@ -21,37 +23,52 @@ const ConfirmedBookings = () => {
   }, [axiosSecure, user.email]);
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">📅 Confirmed Bookings</h2>
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
+        📅 Confirmed Bookings
+      </h2>
+
       <div className="overflow-x-auto">
-        <table className="table-auto w-full border border-gray-200">
-          <thead className="bg-gray-100">
+        <table className="table w-full">
+          <thead className="bg-blue-50">
             <tr>
-              <th className="p-2 border">#</th>
-              <th className="p-2 border">Court</th>
-              <th className="p-2 border">Date</th>
-              <th className="p-2 border">Slot</th>
-              <th className="p-2 border">Price</th>
-              <th className="p-2 border">Status</th>
+              <th className="text-left py-2 px-4">#</th>
+              <th className="text-left py-2 px-4">Court</th>
+              <th className="text-left py-2 px-4">Date</th>
+              <th className="text-left py-2 px-4">Slot</th>
+              <th className="text-left py-2 px-4">Price</th>
+              <th className="text-left py-2 px-4">Status</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((booking, index) => (
-              <tr key={booking._id}>
-                <td className="p-2 border text-center">{index + 1}</td>
-                <td className="p-2 border">{booking.courtName}</td>
-                <td className="p-2 border">{new Date(booking.date).toLocaleDateString()}</td>
-                <td className="p-2 border">{booking.slot}</td>
-                <td className="p-2 border">${booking.price}</td>
-                <td className="p-2 border text-green-600 font-semibold capitalize">{booking.status}</td>
-              </tr>
-            ))}
-            {bookings.length === 0 && (
+            {bookings.length === 0 ? (
               <tr>
-                <td colSpan={6} className="text-center py-4 text-gray-500">
+                <td
+                  colSpan={6}
+                  className="text-center py-6 text-gray-500 italic"
+                >
                   No confirmed bookings found.
                 </td>
               </tr>
+            ) : (
+              bookings.map((booking, index) => (
+                <tr key={booking._id} className="border-t">
+                  <td className="py-2 px-4 text-gray-700 font-medium">
+                    {index + 1}
+                  </td>
+                  <td className="py-2 px-4">{booking.courtName}</td>
+                  <td className="py-2 px-4">
+                    {new Date(booking.date).toLocaleDateString()}
+                  </td>
+                  <td className="py-2 px-4">
+                    {booking.slots?.join(", ") || "N/A"}
+                  </td>
+                  <td className="py-2 px-4">${booking.price}</td>
+                  <td className="py-2 px-4 text-green-600 font-semibold capitalize">
+                    {booking.status}
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>

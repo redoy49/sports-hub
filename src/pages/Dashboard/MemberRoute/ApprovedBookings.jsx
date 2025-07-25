@@ -4,14 +4,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import Swal from "sweetalert2";
 
 const ApprovedBookings = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure(); // ✅ Correct usage
+  const axiosSecure = useAxiosSecure(); 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  // 📦 Fetch approved bookings for the logged-in member
   const {
     data: approvedBookings = [],
     isLoading,
@@ -28,7 +28,6 @@ const ApprovedBookings = () => {
     },
   });
 
-  // ❌ Cancel booking mutation
   const cancelMutation = useMutation({
     mutationFn: async (id) => {
       await axiosSecure.delete(`/bookings/${id}`);
@@ -41,56 +40,73 @@ const ApprovedBookings = () => {
     },
   });
 
-  // 🧭 Go to payment page
   const handlePayment = (id) => {
     navigate(`/dashboard/payment-page/${id}`);
   };
 
-  // ❌ Cancel booking action
   const handleCancel = (id) => {
-    if (confirm("Are you sure you want to cancel this booking?")) {
-      cancelMutation.mutate(id);
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you really want to cancel this booking?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cancelMutation.mutate(id);
+        Swal.fire("Cancelled!", "Your booking has been cancelled.", "success");
+      }
+    });
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Approved Bookings</h2>
+    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+      <h2 className="mb-4 text-2xl font-bold text-gray-800">
+        Approved Bookings
+      </h2>
 
-      {/* ⏳ Loading State */}
-      {isLoading && <LoadingSpinner/>}
+      {isLoading && <LoadingSpinner />}
 
-      {/* ❌ Error State */}
-      {isError && <p className="text-red-500">Error: {error.message}</p>}
+      {isError && (
+        <p className="text-red-500">
+          Error: {error?.message || "Something went wrong."}
+        </p>
+      )}
 
-      {/* ✅ Data State */}
       {!isLoading && approvedBookings.length === 0 && (
-        <p>No approved bookings found.</p>
+        <p className="text-center text-gray-500 py-6 italic">
+          No approved bookings found.
+        </p>
       )}
 
       {!isLoading && approvedBookings.length > 0 && (
         <div className="overflow-x-auto">
           <table className="table w-full">
-            <thead>
+            <thead className="bg-blue-50">
               <tr>
-                <th>Court</th>
-                <th>Date</th>
-                <th>Slot</th>
-                <th>Price</th>
-                <th>Actions</th>
+                <th className="text-left py-2 px-4">Court</th>
+                <th className="text-left py-2 px-4">Date</th>
+                <th className="text-left py-2 px-4">Slot</th>
+                <th className="text-left py-2 px-4">Price</th>
+                <th className="text-left py-2 px-4">Actions</th>
               </tr>
             </thead>
             <tbody>
               {approvedBookings.map((booking) => (
-                <tr key={booking._id}>
-                  <td>{booking.courtName}</td>
-                  <td>{new Date(booking.date).toLocaleDateString()}</td>
-                  <td>{booking.slot}</td>
-                  <td>${booking.price}</td>
-                  <td>
+                <tr key={booking._id} className="border-t">
+                  <td className="py-2 px-4">{booking.courtName}</td>
+                  <td className="py-2 px-4">
+                    {new Date(booking.date).toLocaleDateString()}
+                  </td>
+                  <td>{booking.slots?.join(", ") || "N/A"}</td>
+                  <td className="py-2 px-4">${booking.price}</td>
+                  <td className="py-2 px-4 space-x-2">
                     <button
                       onClick={() => handlePayment(booking._id)}
-                      className="btn btn-sm btn-success mr-2"
+                      className="btn btn-sm btn-success"
                     >
                       Pay
                     </button>
