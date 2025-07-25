@@ -25,7 +25,7 @@ const ManageBookings = () => {
   }, [axiosSecure, search]);
 
   return (
-    <div className="max-w-6xl mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
+    <div className="max-w-full mx-auto border border-gray-200 px-4 py-6 mt-16 lg:mt-2">
       <h2 className="mb-4 text-2xl font-bold text-gray-800">
         📋 Manage Booking Approvals
       </h2>

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import {
   FaHome,
   FaCalendarAlt,
@@ -36,7 +36,11 @@ const DashboardLayout = () => {
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
 
         <ul className="menu p-4 w-72 bg-base-200 text-base-content min-h-full">
-          <h2 className="text-xl font-bold mb-4">SCMS Dashboard</h2>
+          <Link to="/">
+            <h2 className="text-xl font-bold mb-4 cursor-pointer hover:text-blue-600 transition-colors">
+              SCMS
+            </h2>
+          </Link>
 
           {/* Dashboard Home */}
           <li>

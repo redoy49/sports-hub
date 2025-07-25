@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import useUserRole from "../../hooks/useRole";
+import fallbackImage from "../../assets/profileFallback.png";
+import athletedHub from "../../assets/athletesHub.png";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
@@ -30,21 +32,21 @@ const Navbar = () => {
       <li>
         <NavLink to="/courts">Courts</NavLink>
       </li>
-      {user && (
-        <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
-      )}
     </>
   );
 
   return (
-    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between bg-slate-50 border-b border-gray-950/5 z-10">
+    <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between bg-white border-b border-gray-950/5 z-10">
       <div className="w-full max-w-[1600px] h-16 mx-auto flex items-center justify-between">
         {/* Mobile Dropdown */}
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost p-0">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              stroke="currentColor"
+              fill="none"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -61,25 +63,25 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Logo + Brand */}
-        <Link to="/" className="flex items-center gap-2">
-          <img src="" alt="Logo" className="w-10 h-10 object-contain" />
-          <span className="text-2xl font-bold text-green-600">SCMS</span>
+        <Link to="/" className="hidden lg:flex items-center gap-2">
+          <img
+            src={athletedHub}
+            alt="Logo"
+            className="h-8 w-full object-contain text-black"
+          />
         </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden lg:flex">
-          <ul className="flex gap-6 text-gray-950">{navLinks}</ul>
+        <div className="hidden lg:flex ml-auto">
+          <ul className="flex gap-6 text-gray-950 mr-6">{navLinks}</ul>
         </div>
 
-        {/* Auth Buttons */}
         <div className="flex items-center gap-3">
           {user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <img
-                  className="w-10 h-10 rounded-full object-cover"
-                  src={user.photoURL}
+                  className="w-10 h-10 rounded-full border border-slate-300 object-cover"
+                  src={user.photoURL || fallbackImage}
                   alt={user?.displayName || "User"}
                   title={user?.displayName || "User"}
                 />
