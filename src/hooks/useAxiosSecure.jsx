@@ -19,8 +19,7 @@ const useAxiosSecure = () => {
         if (!user) return config;
 
         try {
-          const token = await user.getIdToken(true); // ✅ force refresh token
-          console.log("Token", token);
+          const token = await user.getIdToken(true); 
           config.headers.Authorization = `Bearer ${token}`;
         } catch (err) {
           console.error("Error getting token", err);
@@ -35,7 +34,6 @@ const useAxiosSecure = () => {
       (res) => res,
       (error) => {
         const status = error?.response?.status;
-        console.log("Axios error -->", status);
 
         if (status === 401 || status === 403) {
           logoutUser();

@@ -13,7 +13,7 @@ const PromotionSection = () => {
       return res.data;
     },
   });
-console.log(coupons);
+  
   return (
     <section className="bg-slate-50 py-16">
       <div className="max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%]">
@@ -22,7 +22,6 @@ console.log(coupons);
           subtitle="Save more with our latest discount coupons"
         />
 
-        {/* Loading & Error States */}
         {isLoading && <p className="text-center mt-8">Loading coupons...</p>}
         {isError && <p className="text-center text-red-600 mt-8">Failed to load coupons.</p>}
 

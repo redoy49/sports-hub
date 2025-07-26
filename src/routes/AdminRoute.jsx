@@ -15,16 +15,13 @@ const AdminRoute = ({ children }) => {
   }
 
   if (!user) {
-    // Not logged in, redirect to login page, preserve original location to redirect back after login
     return <Navigate to="/login" state={{ from: location }} replace={true} />;
   }
 
   if (role !== 'admin') {
-    // Logged in but not admin, redirect to forbidden page
     return <Navigate to="/forbidden" replace={true} />;
   }
 
-  // User is authenticated and admin: render protected content
   return children;
 };
 

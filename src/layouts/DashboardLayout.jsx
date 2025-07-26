@@ -20,10 +20,7 @@ const DashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-
-      {/* ===== Drawer Content (Main Area) ===== */}
       <div className="drawer-content flex flex-col">
-        {/* ===== Top Navbar for Mobile ===== */}
         <div className="lg:hidden flex items-center justify-between p-4 bg-white shadow">
           <label
             htmlFor="dashboard-drawer"
@@ -49,18 +46,15 @@ const DashboardLayout = () => {
           </Link>
         </div>
 
-        {/* ===== Main Page Content ===== */}
         <main className="p-4">
           <Outlet />
         </main>
       </div>
 
-      {/* ===== Drawer Sidebar ===== */}
       <div className="drawer-side">
         <label htmlFor="dashboard-drawer" className="drawer-overlay" />
 
         <ul className="menu p-4 w-72 min-h-full bg-slate-100 text-base-content text-left space-y-1">
-          {/* Logo */}
           <Link to="/" className="hidden lg:flex items-center gap-2 mb-6">
             <img
               src={athletedHub}
@@ -69,14 +63,12 @@ const DashboardLayout = () => {
             />
           </Link>
 
-          {/* Common Dashboard Home */}
           <li>
             <NavLink to="/dashboard" end>
               <FaHome /> Dashboard Home
             </NavLink>
           </li>
 
-          {/* User Dashboard (Non-Member) */}
           {!roleLoading && role === "user" && (
             <>
               <li>
@@ -92,7 +84,6 @@ const DashboardLayout = () => {
             </>
           )}
 
-          {/* Member Dashboard */}
           {!roleLoading && role === "member" && (
             <>
               <li>
@@ -123,7 +114,6 @@ const DashboardLayout = () => {
             </>
           )}
 
-          {/* Admin Dashboard */}
           {!roleLoading && role === "admin" && (
             <>
               <li>

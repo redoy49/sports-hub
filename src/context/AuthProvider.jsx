@@ -17,31 +17,26 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  // Register new user
   const registerUserWithEmail = (email, password) => {
     setIsAuthLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Login user with email and password
   const loginUserWithEmail = (email, password) => {
     setIsAuthLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Login user with Google
   const loginWithGoogle = () => {
     setIsAuthLoading(true);
     return signInWithPopup(auth, googleAuthProvider);
   };
 
-  // Logout user
   const logoutUser = () => {
     setIsAuthLoading(true);
     return signOut(auth);
   };
 
-  // Update user profile with name and photo
   const updateUserDetails = (displayName, photoURL) => {
     return updateProfile(auth.currentUser, {
       displayName,
@@ -49,19 +44,13 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  // Monitor authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      console.log('Auth State Changed:', currentUser?.email);
 
       if (currentUser?.email) {
         setUser(currentUser);
-
-        // Optional: Handle JWT or session cookie setup here
       } else {
         setUser(null);
-
-        // Optional: Handle logout cleanup here
       }
 
       setIsAuthLoading(false);

@@ -88,11 +88,9 @@ const ManageCourts = () => {
 
     try {
       if (editCourt) {
-        // Update existing court
         await axiosInstance.patch(`/courts/${editCourt._id}`, payload);
         toast.success("Court updated");
       } else {
-        // Add new court
         await axiosInstance.post("/courts", payload);
         toast.success("New court added");
       }
@@ -169,8 +167,7 @@ const ManageCourts = () => {
           </table>
         </div>
       )}
-
-      {/* Modal for Add / Update */}
+      
       {showModal && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex justify-center items-center z-50">
           <div className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg relative">

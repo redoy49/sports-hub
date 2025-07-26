@@ -17,7 +17,6 @@ const CheckoutForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Fetch booking by ID
   useEffect(() => {
     const fetchBooking = async () => {
       if (!id) return;
@@ -31,10 +30,11 @@ const CheckoutForm = () => {
       }
     };
 
+    console.log(setBooking);
+
     fetchBooking();
   }, [axiosSecure, id]);
 
-  // Fetch Stripe client secret
   useEffect(() => {
     if (!booking) return;
     const fetchClientSecret = async () => {
@@ -61,7 +61,6 @@ const CheckoutForm = () => {
 
     const card = elements.getElement(CardElement);
     try {
-      // Step 1: Create Payment Method
       const { error: pmError, paymentMethod } =
         await stripe.createPaymentMethod({
           type: "card",
@@ -76,7 +75,6 @@ const CheckoutForm = () => {
         return;
       }
 
-      // Step 2: Confirm Card Payment
       const { error: confirmError, paymentIntent } =
         await stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
@@ -87,14 +85,13 @@ const CheckoutForm = () => {
       if (confirmError) {
         toast.error(confirmError.message);
       } else if (paymentIntent.status === "succeeded") {
-        // Step 3: Save payment to backend and update booking to confirmed
         await axiosSecure.post("/save-payment", {
           amount: booking.price,
           bookingId: booking._id,
           userEmail: booking.userEmail,
           paymentIntentId: paymentIntent.id,
           status: paymentIntent.status,
-          paidAt: new Date(), // Optional timestamp
+          paidAt: new Date(), 
         });
 
         toast.success("🎉 Payment successful!");

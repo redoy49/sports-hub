@@ -11,7 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const { role } = useUserRole();
-  console.log(role);
 
   const handleLogout = async () => {
     try {
@@ -91,7 +90,7 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-gray-950 rounded-box w-52"
               >
                 <li>
-                  <span className="text-sm">
+                  <span className="text-sm cursor-default">
                     {user.displayName || user.email}
                   </span>
                 </li>

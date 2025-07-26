@@ -5,7 +5,6 @@ import { EffectCards, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
-// Import images
 import badminton from "../../assets/badminton.jpg";
 import badminton2 from "../../assets/badminton2.jpg";
 import basketball from "../../assets/basketball.jpg";
@@ -46,7 +45,6 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Right: Swiper Carousel */}
         <div className="flex-1 w-full flex justify-center lg:justify-end mt-10 lg:mt-0">
           <Swiper
             effect={"cards"}

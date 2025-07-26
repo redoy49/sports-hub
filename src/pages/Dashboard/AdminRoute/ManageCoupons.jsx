@@ -12,7 +12,6 @@ const ManageCoupons = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
   const [editingCoupon, setEditingCoupon] = useState(null);
 
-  // Get all coupons
   const { data: coupons = [], isLoading } = useQuery({
     queryKey: ["coupons"],
     queryFn: async () => {
@@ -21,7 +20,6 @@ const ManageCoupons = () => {
     },
   });
 
-  // Add / Update Coupon
   const { mutate: saveCoupon } = useMutation({
     mutationFn: async (coupon) => {
       if (editingCoupon) {
@@ -42,7 +40,6 @@ const ManageCoupons = () => {
     },
   });
 
-  // Delete Coupon
   const { mutate: deleteCoupon } = useMutation({
     mutationFn: async (id) => {
       return await axiosSecure.delete(`/coupons/${id}`);

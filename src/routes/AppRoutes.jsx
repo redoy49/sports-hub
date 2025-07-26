@@ -31,13 +31,10 @@ import ConfirmedBookings from "../pages/Dashboard/MemberRoute/ConfirmedBookings"
 import PaymentPage from "../pages/Dashboard/MemberRoute/PaymentPage";
 import PaymentHistory from "../pages/Dashboard/MemberRoute/PaymentHistory";
 
-// Common
 import Announcements from "../pages/Dashboard/common/Announcements";
 
-// User Route (Private, not member)
 import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBookings"; // Create this if needed
 
-// Home component that shows profile by role
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
@@ -66,13 +63,11 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      // ✅ By default shows DashboardHome based on role (profile)
       {
         index: true,
         element: <DashboardHome />,
       },
 
-      // 🔹 User Dashboard (non-member)
       {
         path: "pending-bookings",
         element: <PendingBookings />,
@@ -82,7 +77,6 @@ const router = createBrowserRouter([
         element: <Announcements />,
       },
 
-      // 🔹 Member Dashboard
       {
         path: "pending-bookings",
         element: (
@@ -132,7 +126,6 @@ const router = createBrowserRouter([
         ),
       },
 
-      // 🔹 Admin Dashboard
       {
         path: "manage-courts",
         element: (

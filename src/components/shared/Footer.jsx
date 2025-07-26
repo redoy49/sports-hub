@@ -13,8 +13,6 @@ const Footer = () => {
   return (
     <footer className="bg-slate-50 text-base-content mt-10 border-t border-gray-50">
       <div className="container max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
-
-        {/* About Us */}
         <div>
           <h2 className="footer-title mb-4 text-lg font-bold">About Us</h2>
           <p className="text-gray-700 leading-relaxed text-sm">
@@ -23,8 +21,6 @@ const Footer = () => {
             Join us and be part of something great!
           </p>
         </div>
-
-        {/* Contact Info */}
         <div>
           <h2 className="footer-title mb-4 text-lg font-bold">Contact Us</h2>
           <p className="flex items-center gap-2 mb-2 text-gray-700">
@@ -37,8 +33,6 @@ const Footer = () => {
             <FaEnvelope /> info@sportsclub.com
           </p>
         </div>
-
-        {/* Useful Links */}
         <div>
           <h2 className="footer-title mb-4 text-lg font-bold">Quick Links</h2>
           <ul className="space-y-2 text-gray-700">
@@ -70,8 +64,6 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-
-        {/* Social + Newsletter */}
         <div>
           <h2 className="footer-title mb-4 text-lg font-bold">Follow & Subscribe</h2>
           <div className="flex gap-5 text-3xl mb-6 text-gray-700">

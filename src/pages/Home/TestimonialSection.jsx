@@ -1,7 +1,6 @@
 import React from "react";
 import SectionTitle from "../../components/shared/SectionTitle";
 
-// Sample testimonial data
 const testimonials = [
   {
     id: 1,

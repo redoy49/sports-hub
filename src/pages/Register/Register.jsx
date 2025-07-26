@@ -18,7 +18,6 @@ const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // Email + Password Registration
   const handleRegister = async (data) => {
     const { fullName, email, password } = data;
 
@@ -34,8 +33,6 @@ const Register = () => {
       const userRes = await axiosInstance.post("/users", userData);
       console.log(userRes.data);
 
-      console.log("UserData", userData);
-
       console.log("Registered user info:", result.user);
 
       toast.success("Registration successful!");
@@ -46,7 +43,6 @@ const Register = () => {
     }
   };
 
-  // Google Registration/Login
   const handleGoogleSignIn = async () => {
     try {
       const result = await loginWithGoogle();

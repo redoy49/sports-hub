@@ -6,7 +6,6 @@ const LocationSection = () => {
   return (
     <section className="bg-base-100 py-16">
       <div className="max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%]">
-        {/* Section Title */}
         <SectionTitle
           title="Our Location"
           subtitle="Visit us or find us on the map"
@@ -25,9 +24,8 @@ const LocationSection = () => {
             <p>✉️ Email: info@sportsclub.com</p>
           </div>
 
-          {/* Static Map Image (16:9 aspect) */}
           <div className="flex-1 w-full rounded-xl overflow-hidden relative">
-            <div className="pt-[56.25%]"> {/* 16:9 Aspect Ratio */}
+            <div className="pt-[56.25%]"> 
               <img
                 src={mapImg}
                 alt="Sports Club Map"

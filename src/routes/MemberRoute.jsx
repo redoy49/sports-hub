@@ -14,16 +14,13 @@ const MemberRoute = ({ children }) => {
   }
 
   if (!user) {
-    // Not logged in, redirect to login
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   if (role !== 'member') {
-    // Logged in but not a member, redirect to forbidden
     return <Navigate to="/forbidden" replace />;
   }
 
-  // User is authenticated and has member role
   return children;
 };
 

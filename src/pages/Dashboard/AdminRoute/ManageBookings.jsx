@@ -29,8 +29,7 @@ const ManageBookings = () => {
       <h2 className="mb-4 text-2xl font-bold text-gray-800">
         📋 Manage Booking Approvals
       </h2>
-
-      {/* Styled Search Input */}
+      
       <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
         <input
           type="text"

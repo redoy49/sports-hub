@@ -66,7 +66,6 @@ const ManageMembers = () => {
         👥 Manage Members
       </h2>
 
-      {/* Custom Search Input */}
       <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
         <input
           type="text"
@@ -78,7 +77,6 @@ const ManageMembers = () => {
         <i className="fas fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
       </div>
 
-      {/* Data Display */}
       {isLoading ? (
         <div className="flex justify-center items-center py-10">
           <LoadingSpinner />

@@ -36,7 +36,6 @@ const AllUsers = () => {
         👤 All Users
       </h2>
 
-      {/* Styled Search Bar */}
       <div className="search-input-container w-full md:w-80 flex-shrink-0 relative mb-6">
         <input
           type="text"
@@ -48,7 +47,6 @@ const AllUsers = () => {
         <i className="fas fa-search absolute left-3 top-2.5 text-gray-500 text-sm"></i>
       </div>
 
-      {/* User Table */}
       <div className="overflow-x-auto">
         <table className="table w-full border border-gray-200">
           <thead className="bg-base-200 text-sm">
