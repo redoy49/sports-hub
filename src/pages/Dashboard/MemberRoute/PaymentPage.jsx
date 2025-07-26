@@ -9,7 +9,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const Payment = () => {
   return (
     <div>
-      <h1>Stripe Manual Payment Example</h1>
       <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements>

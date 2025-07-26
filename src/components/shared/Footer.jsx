@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-50 text-base-content mt-10 border-t border-gray-300">
+    <footer className="bg-slate-50 text-base-content mt-10 border-t border-gray-50">
       <div className="container max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* About Us */}
@@ -128,7 +128,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-center py-5 border-t border-gray-300 text-sm text-gray-600">
+      <div className="text-center py-5 border-t border-gray-200 text-sm text-gray-600">
         <p>© {new Date().getFullYear()} Sports Club Management System. All rights reserved.</p>
       </div>
     </footer>

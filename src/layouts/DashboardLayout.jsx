@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Navbar from "../components/shared/Navbar";
 import useUserRole from "../hooks/useRole";
+import athletedHub from "../assets/athletesHub.png";
 
 const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
@@ -20,36 +21,62 @@ const DashboardLayout = () => {
     <div className="drawer lg:drawer-open">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
 
+      {/* ===== Drawer Content (Main Area) ===== */}
       <div className="drawer-content flex flex-col">
-        {/* Mobile Navbar */}
-        <div className="lg:hidden">
-          <Navbar />
+        {/* ===== Top Navbar for Mobile ===== */}
+        <div className="lg:hidden flex items-center justify-between p-4 bg-white shadow">
+          <label
+            htmlFor="dashboard-drawer"
+            className="btn btn-square btn-ghost"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </label>
+          <Link to="/" className="text-xl font-bold flex items-center gap-2">
+            <img src={athletedHub} alt="Logo" className="h-8" />
+          </Link>
         </div>
 
-        {/* Main Content */}
-        <main className="p-4 flex-grow">
+        {/* ===== Main Page Content ===== */}
+        <main className="p-4">
           <Outlet />
         </main>
       </div>
 
+      {/* ===== Drawer Sidebar ===== */}
       <div className="drawer-side">
-        <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
+        <label htmlFor="dashboard-drawer" className="drawer-overlay" />
 
-        <ul className="menu p-4 w-72 bg-base-200 text-base-content min-h-full">
-          <Link to="/">
-            <h2 className="text-xl font-bold mb-4 cursor-pointer hover:text-blue-600 transition-colors">
-              SCMS
-            </h2>
+        <ul className="menu p-4 w-72 min-h-full bg-slate-100 text-base-content text-left space-y-1">
+          {/* Logo */}
+          <Link to="/" className="hidden lg:flex items-center gap-2 mb-6">
+            <img
+              src={athletedHub}
+              alt="Athlete Hub"
+              className="h-12 w-full object-contain"
+            />
           </Link>
 
-          {/* Dashboard Home */}
+          {/* Common Dashboard Home */}
           <li>
             <NavLink to="/dashboard" end>
               <FaHome /> Dashboard Home
             </NavLink>
           </li>
 
-          {/* User Dashboard (non-member) */}
+          {/* User Dashboard (Non-Member) */}
           {!roleLoading && role === "user" && (
             <>
               <li>
