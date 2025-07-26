@@ -27,21 +27,29 @@ const testimonials = [
     feedback:
       "The booking system is so easy to use, and the courts are always well maintained.",
   },
+  {
+    id: 4,
+    name: "David P.",
+    role: "Member",
+    photo: "https://randomuser.me/api/portraits/men/42.jpg",
+    feedback:
+      "A vibrant community and excellent facilities — highly recommended for all skill levels!",
+  },
 ];
 
 const TestimonialSection = () => {
   return (
     <section className="bg-base-100 py-16">
-      <div className="max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%]">
+      <div className="max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%]">
         <SectionTitle
           title="What Our Members Say"
           subtitle="Real feedback from our club community"
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
           {testimonials.map(({ id, name, role, photo, feedback }) => (
             <div
               key={id}
-              className="card p-6 bg-white rounded-lg shadow-md flex flex-col items-center text-center"
+              className="bg-white rounded-xl p-6 flex flex-col items-center text-center border border-gray-200"
             >
               <img
                 src={photo}
