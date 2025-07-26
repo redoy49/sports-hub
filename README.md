@@ -6,10 +6,10 @@ A full-stack, role-based web application for managing **a single sports club** �
 
 ## 🔗 Live Demo
 
-🌐 **Live Site:** [https://your-live-site-url.vercel.app](https://your-live-site-url.vercel.app)  
+🌐 **Live Site:** [https://athletohub.web.app/](https://athletohub.web.app/)  
 🔐 **Admin Login:**  
-- **Email:** admin@scms.com  
-- **Password:** 123456  
+- **Email:** admin@gmail.com  
+- **Password:** 1111qQ  
 
 ---
 
