@@ -38,7 +38,7 @@ const MemberProfile = () => {
         <p className="mt-4 text-sm text-gray-500">
           Became member on:{" "}
           <strong>
-            {new Date(member.membershipDate).toLocaleDateString()}
+            {new Date(member.createdAt).toLocaleDateString()}
           </strong>
         </p>
       </div>
