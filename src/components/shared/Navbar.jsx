@@ -56,7 +56,7 @@ const Navbar = () => {
           </button>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-gray-950"
+            className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52 text-[#121212]"
           >
             {navLinks}
           </ul>
@@ -71,7 +71,7 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden lg:flex ml-auto">
-          <ul className="flex gap-6 text-gray-950 mr-6">{navLinks}</ul>
+          <ul className="flex gap-6 text-[#121212] mr-6">{navLinks}</ul>
         </div>
 
         <div className="flex items-center gap-3">
@@ -87,7 +87,7 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-gray-950 rounded-box w-52"
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-[#121212] rounded-box w-52"
               >
                 <li>
                   <span className="text-sm cursor-default">
