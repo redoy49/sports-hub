@@ -2,15 +2,12 @@ import React from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import useUserRole from "../../hooks/useRole";
 import fallbackImage from "../../assets/profileFallback.png";
 import athletedHub from "../../assets/athletesHub.png";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuth();
   const navigate = useNavigate();
-
-  const { role } = useUserRole();
 
   const handleLogout = async () => {
     try {
@@ -31,12 +28,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/courts">Courts</NavLink>
       </li>
+      <li>
+        <NavLink to="/support">Support</NavLink>
+      </li>
     </>
   );
 
   return (
     <nav className="w-full fixed px-5 lg:px-8 xl:px-[8%] 2xl:px-[15.5%] flex items-center justify-between bg-white border-b border-gray-950/5 z-10">
       <div className="w-full max-w-[1600px] h-16 mx-auto flex items-center justify-between">
+        
         {/* Mobile Dropdown */}
         <div className="dropdown lg:hidden">
           <button tabIndex={0} className="btn btn-ghost p-0">
