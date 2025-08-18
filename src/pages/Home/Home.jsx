@@ -5,6 +5,7 @@ import LocationSection from "./LocationSection";
 import PromotionSection from "./PromotionSection";
 import TestimonialSection from "./TestimonialSection";
 import BlogSection from "./BlogSection";
+import NewsletterSection from "./NewsLetter";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <PromotionSection />
       <TestimonialSection />
       <BlogSection/>
+      <NewsletterSection/>
     </div>
   );
 };
