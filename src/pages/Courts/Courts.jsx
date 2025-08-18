@@ -195,7 +195,7 @@ const CourtsPage = () => {
                 Total Price: ${selectedCourt.price * slots.length}
               </p>
 
-              <button type="submit" className="btn btn-success w-full">
+              <button type="submit" className="btn btn-success bg-[#0c6af8] text-white w-full">
                 Confirm Booking
               </button>
             </form>
