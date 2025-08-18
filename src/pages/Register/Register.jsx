@@ -125,7 +125,7 @@ const Register = () => {
         {/* Sign Up Button */}
         <button
           type="submit"
-          className="bg-lime-500 w-full rounded-md py-3 text-white"
+          className="bg-blue-500 w-full rounded-md py-3 text-white"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Registering..." : "Sign Up"}
@@ -138,7 +138,7 @@ const Register = () => {
       <button
         type="button"
         onClick={handleGoogleSignIn}
-        className="btn btn-outline w-full flex items-center justify-center gap-2"
+        className="btn btn-outline border-1 border-slate-300 w-full flex items-center justify-center gap-2"
       >
         <FcGoogle size={24} />
         Continue with Google
