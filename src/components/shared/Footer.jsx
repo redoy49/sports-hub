@@ -7,11 +7,12 @@ import {
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
+  FaMobile,
 } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-50 text-base-content mt-10 border-t border-gray-50">
+    <footer className="bg-slate-100 text-base-content mt-10 border-t border-gray-50">
       <div className="container max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] py-12 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
           <h2 className="footer-title mb-4 text-lg font-bold">About Us</h2>
@@ -27,7 +28,7 @@ const Footer = () => {
             <FaMapMarkerAlt /> 123 Club Avenue, Sports City, Dhaka 1207
           </p>
           <p className="flex items-center gap-2 mb-2 text-gray-700">
-            <FaPhone /> +880 1234 567 890
+            <FaMobile /> +880 1234 567 890
           </p>
           <p className="flex items-center gap-2 mb-2 text-gray-700">
             <FaEnvelope /> info@sportsclub.com
@@ -56,19 +57,19 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/register"
+                to="/support"
                 className="link link-hover hover:text-primary"
               >
-                Register
+                Support
               </Link>
             </li>
           </ul>
         </div>
         <div>
-          <h2 className="footer-title mb-4 text-lg font-bold">Follow & Subscribe</h2>
+          <h2 className="footer-title mb-4 text-lg font-bold">Follow Us</h2>
           <div className="flex gap-5 text-3xl mb-6 text-gray-700">
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/redoy49"
               target="_blank"
               rel="noreferrer"
               className="hover:text-primary transition-colors"
@@ -77,7 +78,7 @@ const Footer = () => {
               <FaFacebook />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://twitter.com/redoy49"
               target="_blank"
               rel="noreferrer"
               className="hover:text-primary transition-colors"
@@ -86,7 +87,7 @@ const Footer = () => {
               <FaTwitter />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/mdredoyhasan49"
               target="_blank"
               rel="noreferrer"
               className="hover:text-primary transition-colors"
@@ -96,27 +97,6 @@ const Footer = () => {
             </a>
           </div>
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Subscribed!");
-            }}
-            className="flex flex-col sm:flex-row gap-3"
-          >
-            <input
-              type="email"
-              placeholder="Your email"
-              required
-              className="input input-bordered w-full sm:flex-1 rounded-md"
-              aria-label="Email for newsletter subscription"
-            />
-            <button
-              type="submit"
-              className="btn btn-primary rounded-md whitespace-nowrap"
-            >
-              Subscribe
-            </button>
-          </form>
         </div>
       </div>
 

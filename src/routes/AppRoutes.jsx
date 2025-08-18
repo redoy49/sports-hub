@@ -36,6 +36,7 @@ import Announcements from "../pages/Dashboard/common/Announcements";
 import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBookings"; // Create this if needed
 
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import Support from "../pages/Support/Support";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/courts", element: <CourtsPage /> },
+      {path: '/support', element: <Support/>},
       { path: "forbidden", element: <Forbidden /> },
     ],
   },

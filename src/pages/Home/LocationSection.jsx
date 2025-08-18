@@ -14,14 +14,14 @@ const LocationSection = () => {
         <div className="flex flex-col lg:flex-row gap-10 items-start mt-8">
           {/* Address Info */}
           <div className="flex-1 w-full text-left text-gray-700 space-y-3 text-base sm:text-lg">
-            <h3 className="text-xl sm:text-2xl font-semibold mb-2 text-primary">
+            <h3 className="text-xl sm:text-2xl font-semibold mb-2">
               Sports Club Address
             </h3>
             <p>123 Club Avenue</p>
             <p>Sports City, Dhaka 1207</p>
             <p>Bangladesh</p>
-            <p>📞 Phone: +880 1234 567 890</p>
-            <p>✉️ Email: info@sportsclub.com</p>
+            <p>Phone: +880 1234 567 890</p>
+            <p>Email: info@sportsclub.com</p>
           </div>
 
           <div className="flex-1 w-full rounded-xl overflow-hidden relative">
