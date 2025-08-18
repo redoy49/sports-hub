@@ -6,12 +6,14 @@ import PromotionSection from "./PromotionSection";
 import TestimonialSection from "./TestimonialSection";
 import BlogSection from "./BlogSection";
 import NewsletterSection from "./NewsLetter";
+import PartnerSection from "./PartnerSection";
 
 const Home = () => {
   return (
     <div className="space-y-20">
       <HeroSection />
       <AboutSection />
+      <PartnerSection/>
       <LocationSection />
       <PromotionSection />
       <TestimonialSection />
