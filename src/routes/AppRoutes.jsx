@@ -37,21 +37,24 @@ import UserPendingBookings from "../pages/Dashboard/UserRoute/UserPendingBooking
 
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 import Support from "../pages/Support/Support";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
       { path: "/courts", element: <CourtsPage /> },
-      {path: '/support', element: <Support/>},
+      { path: "/support", element: <Support /> },
       { path: "forbidden", element: <Forbidden /> },
     ],
   },
   {
     path: "/",
     element: <AuthLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
@@ -64,6 +67,7 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
