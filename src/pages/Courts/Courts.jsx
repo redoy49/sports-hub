@@ -10,7 +10,7 @@ const CourtsPage = () => {
   const [slots, setSlots] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const courtsPerPage = 6; 
+  const courtsPerPage = 6;
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -80,7 +80,9 @@ const CourtsPage = () => {
     <section className="w-full bg-base-200 pt-20">
       <div className="flex flex-col-reverse lg:flex-row items-center justify-between max-w-[1600px] mx-auto px-5 lg:px-8 xl:px-[8%] py-10 lg:py-20">
         <div className="text-center lg:text-left flex-1 space-y-6 w-full">
-          <h2 className="text-2xl font-bold mb-6 text-center pb-6">Available Courts</h2>
+          <h2 className="text-2xl mb-6 text-center pb-6 sm:text-3xl md:text-[40px] font-bold text-[#121212]">
+            Available Courts
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentCourts.map((court) => (
@@ -97,7 +99,7 @@ const CourtsPage = () => {
                   <p>Price per session: ${court.price}</p>
                   <button
                     onClick={() => handleBookNow(court)}
-                    className="btn btn-primary mt-4"
+                    className="btn btn-primary bg-[#0c6af8] border-0 mt-4"
                   >
                     Book Now
                   </button>
@@ -118,7 +120,9 @@ const CourtsPage = () => {
               {[...Array(totalPages)].map((_, i) => (
                 <button
                   key={i}
-                  className={`btn btn-sm ${currentPage === i + 1 ? "btn-primary" : "btn-outline"}`}
+                  className={`btn btn-sm ${
+                    currentPage === i + 1 ? "btn-primary bg-[#0c6af8] border-0" : "btn-outline border-1 border-gray-300"
+                  }`}
                   onClick={() => setCurrentPage(i + 1)}
                 >
                   {i + 1}
